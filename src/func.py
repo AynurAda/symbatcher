@@ -39,7 +39,6 @@ class BatchScheduler:
         self.llm_response_ready: Dict[int, threading.Event] = {}
         self.pending_tasks: int = len(self.dataset)
         self.expr: Expression = expr()
-        self.pending_tasks_update: threading.Event = threading.Event()
  
     def single_expression(self, data_point: Any) -> Any:
         """
