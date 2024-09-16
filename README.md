@@ -2,6 +2,7 @@
 
 ## Description
 Symbatcher is a tool that leverages the symbolicai library to provide efficient batch scheduling capabilities.
+Currently only 1 engine at a time is supported. Engine switching to be introduced in a future release.
 
 ## Installation
 
