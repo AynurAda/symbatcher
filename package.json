@@ -1,0 +1,16 @@
+{
+    "version": "0.0.1",
+    "name": "AynurAda/symbatcher",
+    "description": "<Project Description>",
+    "expressions": [
+        {
+            "module": "src/func",
+            "type": "MyExpression"
+        }
+    ],
+    "run": {
+        "module": "src/func",
+        "type": "MyExpression"
+    },
+    "dependencies": []
+}
