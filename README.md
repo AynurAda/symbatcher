@@ -31,7 +31,7 @@ class TestExpression(Expression):
 #Set up your engine (this example uses a mock engine)
 from your_engine_module import MockGPTXChatEngine
 engine = MockGPTXChatEngine()
-EngineRepository.register("neurosymbolic", engine_instance=engine, allow_engine_override=True)
+EngineRepository.register("neurosymbolic", engine_instance=engine)
 
  
 #Prepare your inputs
