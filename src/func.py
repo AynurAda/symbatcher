@@ -2,6 +2,7 @@ import concurrent.futures
 import logging
 import threading
 from typing import Any, Callable, Dict, List, Optional, Union
+
 from symai import Expression
 
 lgr = logging.getLogger()

@@ -22,6 +22,8 @@ from symai.functional import EngineRepository
 
 ##Define a simple Expression
 class TestExpression(Expression):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
     def forward(self, input, kwargs):
     return self.Symbol(input).query("Summarize this input", kwargs)
 
@@ -39,6 +41,4 @@ inputs = ["test1", "test2", "test3"]
 scheduler = BatchScheduler(TestExpression, num_workers=2, engine=engine, dataset=inputs)
 results = scheduler.run()
 
-for i, result in enumerate(results, 1):
-    print(f"Result {i}: {result}")
  

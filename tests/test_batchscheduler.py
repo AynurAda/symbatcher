@@ -1,16 +1,16 @@
-import time
 import itertools
-from typing import List, Any, Tuple 
-import pytest
+import os
+import sys
+import time
 
+import pytest
 from symai import Expression, Symbol
 from symai.backend.base import BatchEngine
-from symai.functional import EngineRepository   
+from symai.functional import EngineRepository
 
-import sys
-import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from src.func import BatchScheduler
+
 
 class TestExpression(Expression):
     def __init__(self, **kwargs):
