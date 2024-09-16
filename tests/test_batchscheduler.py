@@ -5,9 +5,12 @@ import pytest
 
 from symai import Expression, Symbol
 from symai.backend.base import BatchEngine
-from src.func import BatchScheduler
 from symai.functional import EngineRepository   
 
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from src.func import BatchScheduler
 
 class TestExpression(Expression):
     def __init__(self, **kwargs):
