@@ -111,7 +111,7 @@ class BatchScheduler:
             if self.arguments:
                 self.batch_ready.set()
  
-    def run(self) -> List[Any]:
+    def forward(self) -> List[Any]:
         """
         Run the batch scheduling process for symbolicai Expressions.
 
