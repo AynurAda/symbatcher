@@ -15,23 +15,20 @@ pip install symbolicai
 ## Usage
 
 ```python
+from symai import Import
 from symai import Expression
-from src.func import BatchScheduler
-from symai.functional import EngineRepository 
-
 
 ##Define a simple Expression
 class TestExpression(Expression):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
     def forward(self, input, kwargs):
-    return self.Symbol(input).query("Summarize this input", kwargs)
+        return self.Symbol(input).query("Summarize this input", kwargs)
 
-#Prepare your inputs
-inputs = ["test1", "test2", "test3"]
+
+module = Import('AynurAda/symbatcher', expr = TestExpression, dataset = ["test1", "test2", "test3"], num_workers=1, batch_size=1)
  
-#Create and run the BatchScheduler
-scheduler = BatchScheduler(TestExpression, num_workers=2, dataset=inputs, batch_size=2)
-results = scheduler.run()
+
+
 
  
