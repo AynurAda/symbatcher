@@ -16,14 +16,16 @@ pip install symbolicai
 
 ```python
 from symai import Import
-from symai import Expression
+from symai import Expression, Symbol
 
 ##Define a simple Expression
 class TestExpression(Expression):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-    def forward(self, input, kwargs):
-        return self.Symbol(input).query("Summarize this input", kwargs)
+    
+    def forward(self, input, **kwargs):
+        res = Symbol(input).query("Summarize this input", **kwargs)
+        return res.value
 
 
 module = Import('AynurAda/symbatcher', expr = TestExpression, dataset = ["test1", "test2", "test3"], num_workers=1, batch_size=1)
