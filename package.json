@@ -1,16 +1,16 @@
 {
     "version": "0.0.1",
     "name": "AynurAda/symbatcher",
-    "description": "<Project Description>",
+    "description": "the symbolicai batch scheduler for parallel execution of expressions and batched llm calls",
     "expressions": [
         {
             "module": "src/func",
-            "type": "MyExpression"
+            "type": "BatchScheduler"
         }
     ],
     "run": {
         "module": "src/func",
-        "type": "MyExpression"
+        "type": "BatchScheduler"
     },
     "dependencies": []
-}
+}s

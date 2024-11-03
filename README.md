@@ -27,18 +27,11 @@ class TestExpression(Expression):
     def forward(self, input, kwargs):
     return self.Symbol(input).query("Summarize this input", kwargs)
 
-
-#Set up your engine (this example uses a mock engine)
-from your_engine_module import MockGPTXChatEngine
-engine = MockGPTXChatEngine()
-EngineRepository.register("neurosymbolic", engine_instance=engine)
-
- 
 #Prepare your inputs
 inputs = ["test1", "test2", "test3"]
  
 #Create and run the BatchScheduler
-scheduler = BatchScheduler(TestExpression, num_workers=2, engine=engine, dataset=inputs)
+scheduler = BatchScheduler(TestExpression, num_workers=2, dataset=inputs, batch_size=2)
 results = scheduler.run()
 
  

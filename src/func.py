@@ -2,11 +2,12 @@ import concurrent.futures
 import logging
 import threading
 from typing import Any, Callable, Dict, List, Optional, Union
-
+from symai.core_ext import bind
 from symai import Expression
 
 lgr = logging.getLogger()
 lgr.setLevel(logging.CRITICAL)
+
 
 class BatchScheduler:
     """
@@ -16,19 +17,17 @@ class BatchScheduler:
     utilizing multiple workers and an external engine for processing.
     """
 
-    def __init__(self, expr: Expression, num_workers: int, engine: Callable, dataset: List[Any], batch_size: int = 5):
+    def __init__(self, expr: Expression, num_workers: int, dataset: List[Any], batch_size: int = 5):
         """
         Initialize the BatchScheduler for symbolicai Expressions.
 
         Args:
             expr (Expression): The symbolicai Expression to be executed.
             num_workers (int): The number of worker threads to use.
-            engine (Callable): The engine function for processing batches of Expression results.
             dataset (List[Any]): The list of data points to process through the Expression.
             batch_size (int, optional): The size of each batch. Defaults to 5.
         """
         self.num_workers: int = num_workers
-        self.engine: Callable = engine
         self.dataset: List[Any] = dataset
         self.results: Dict[Any, Any] = {}
         self.arguments: List[Any] = []
@@ -40,7 +39,11 @@ class BatchScheduler:
         self.llm_response_ready: Dict[int, threading.Event] = {}
         self.pending_tasks: int = len(self.dataset)
         self.expr: Expression = expr()
- 
+    
+    @bind(engine="neurosymbolic", property="__call__")
+    def engine(self):
+        pass
+
     def single_expression(self, data_point: Any) -> Any:
         """
         Execute the symbolicai Expression for a single data point.
