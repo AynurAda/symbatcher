@@ -10,7 +10,7 @@
     ],
     "run": {
         "module": "src/func",
-        "type": "BatchScheduler"
+        "type": "BatchScheduler" 
     },
     "dependencies": []
 }
