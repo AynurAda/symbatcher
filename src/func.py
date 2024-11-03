@@ -29,7 +29,7 @@ class BatchScheduler(Expression):
         """
         pass
 
-    def single_expression(self, data_point: Any) -> Any:
+    def single_expression(self, data_point: Any, **kwargs) -> Any:
         """
         Execute the symbolicai Expression for a single data point.
 
@@ -41,7 +41,7 @@ class BatchScheduler(Expression):
         """
         expr = self.expr
         try:
-            return expr(data_point, executor_callback=self.executor_callback)
+            return expr(data_point, executor_callback=self.executor_callback, **kwargs)
         except Exception as e:
             print(f"Data point {data_point} generated an exception: {str(e)}")
             return e   
@@ -96,7 +96,7 @@ class BatchScheduler(Expression):
             if self.arguments:
                 self.batch_ready.set()
  
-    def forward(self, expr: Expression, num_workers: int, dataset: List[Any], batch_size: int = 5) -> List[Any]:
+    def forward(self, expr: Expression, num_workers: int, dataset: List[Any], batch_size: int = 5, **kwargs) -> List[Any]:
         """
         Run the batch scheduling process for symbolicai Expressions.
 
@@ -126,7 +126,7 @@ class BatchScheduler(Expression):
         query_thread = threading.Thread(target=self.execute_queries)
         query_thread.start()
         with concurrent.futures.ThreadPoolExecutor(max_workers=self.num_workers) as executor:
-            future_to_data = {executor.submit(self.single_expression, data_point): data_point for data_point in self.dataset}
+            future_to_data = {executor.submit(self.single_expression, data_point, **kwargs): data_point for data_point in self.dataset}
             for future in concurrent.futures.as_completed(future_to_data):
                 data_point = future_to_data[future]
                 try:
