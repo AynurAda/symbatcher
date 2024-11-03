@@ -9,7 +9,7 @@ lgr = logging.getLogger()
 lgr.setLevel(logging.CRITICAL)
 
 
-class BatchScheduler:
+class BatchScheduler(Expression):
     """
     A class for scheduling and executing batch operations with Expressions from symbolicai.
 
