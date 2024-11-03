@@ -17,31 +17,16 @@ class BatchScheduler(Expression):
     utilizing multiple workers and an external engine for processing.
     """
 
-    def __init__(self, expr: Expression, num_workers: int, dataset: List[Any], batch_size: int = 5):
-        """
-        Initialize the BatchScheduler for symbolicai Expressions.
-
-        Args:
-            expr (Expression): The symbolicai Expression to be executed.
-            num_workers (int): The number of worker threads to use.
-            dataset (List[Any]): The list of data points to process through the Expression.
-            batch_size (int, optional): The size of each batch. Defaults to 5.
-        """
-        self.num_workers: int = num_workers
-        self.dataset: List[Any] = dataset
-        self.results: Dict[Any, Any] = {}
-        self.arguments: List[Any] = []
-        self.lock: threading.Lock = threading.Lock()
-        self.batch_size: int = min(batch_size, len(dataset) if dataset else 1, num_workers)
-        self.batch_ready: threading.Event = threading.Event()
-        self.processing_complete: threading.Event = threading.Event()
-        self.llm_responses: Dict[int, Optional[Any]] = {}
-        self.llm_response_ready: Dict[int, threading.Event] = {}
-        self.pending_tasks: int = len(self.dataset)
-        self.expr: Expression = expr()
+    def __init__(self):
+        """Initialize the BatchScheduler without parameters."""
+        super().__init__()
     
     @bind(engine="neurosymbolic", property="__call__")
-    def engine(self):
+    def engine(self, *args, **kwargs):
+        """
+        Engine method that will be bound to the neurosymbolic engine's __call__.
+        Must accept arguments to match the engine's interface.
+        """
         pass
 
     def single_expression(self, data_point: Any) -> Any:
@@ -101,7 +86,7 @@ class BatchScheduler(Expression):
                 current_arguments = self.arguments[:self.batch_size]
                 self.arguments = self.arguments[self.batch_size:]      
             if current_arguments:
-                llm_batch_responses = self.engine(current_arguments)
+                llm_batch_responses = self.engine()(current_arguments)
                 llm_batch_responses = [(resp[0] if isinstance(resp[0], list) else [resp[0]], resp[1]) for resp in llm_batch_responses]
                 for arg, llm_response in zip(current_arguments, llm_batch_responses):
                     with self.lock:
@@ -111,16 +96,33 @@ class BatchScheduler(Expression):
             if self.arguments:
                 self.batch_ready.set()
  
-    def forward(self) -> List[Any]:
+    def forward(self, expr: Expression, num_workers: int, dataset: List[Any], batch_size: int = 5) -> List[Any]:
         """
         Run the batch scheduling process for symbolicai Expressions.
 
-        This method starts the query execution thread and manages the concurrent
-        processing of data points through the Expression.
+        Args:
+            expr (Expression): The symbolicai Expression to be executed.
+            num_workers (int): The number of worker threads to use.
+            dataset (List[Any]): The list of data points to process through the Expression.
+            batch_size (int, optional): The size of each batch. Defaults to 5.
 
         Returns:
             List[Any]: A list of final results for each data point in the dataset.
         """
+        # Initialize all the instance variables that were previously in __init__
+        self.num_workers = num_workers
+        self.dataset = dataset
+        self.results = {}
+        self.arguments = []
+        self.lock = threading.Lock()
+        self.batch_size = min(batch_size, len(dataset) if dataset else 1, num_workers)
+        self.batch_ready = threading.Event()
+        self.processing_complete = threading.Event()
+        self.llm_responses = {}
+        self.llm_response_ready = {}
+        self.pending_tasks = len(self.dataset)
+        self.expr = expr()
+
         query_thread = threading.Thread(target=self.execute_queries)
         query_thread.start()
         with concurrent.futures.ThreadPoolExecutor(max_workers=self.num_workers) as executor:
