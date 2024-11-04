@@ -93,7 +93,7 @@ class BatchScheduler(Expression):
                         arg_id = id(arg)
                         self.llm_responses[arg_id] = llm_response
                         self.llm_response_ready[arg_id].set()
-            if self.arguments:
+            if self.arguments and self.pending_tasks < self.batch_size:
                 self.batch_ready.set()
  
     def forward(self, expr: Expression, num_workers: int, dataset: List[Any], batch_size: int = 5, **kwargs) -> List[Any]:
@@ -136,6 +136,7 @@ class BatchScheduler(Expression):
                     print(f'Data point {data_point} generated an exception: {exc}')
                 finally:
                     self.pending_tasks -= 1
+                if self.pending_tasks < self.batch_size:
                     self.batch_ready.set()
         self.processing_complete.set()
         print("processing complete")
