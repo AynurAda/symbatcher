@@ -120,6 +120,7 @@ class ConditionalSlowExpression(Expression):
             return Symbol(input).query("Quickly process this short input", **kwargs)
 
 
+@pytest.mark.timeout(5)
 def test_simple_batch():
     expr = TestExpression
     inputs = ["test1", "test2", "test3"]
@@ -130,6 +131,7 @@ def test_simple_batch():
         assert f"test{i}" in str(result)
         assert "Summarize this input" in str(result)
 
+@pytest.mark.timeout(5)
 def test_nested_batch():
     expr = NestedExpression
     inputs = ["nested1", "nested2"]
@@ -141,6 +143,7 @@ def test_nested_batch():
         assert "Elaborate on this result" in str(result)
         assert "Summarize this input" in str(result)
 
+@pytest.mark.timeout(5)
 def test_conditional_batch():
     expr = ConditionalExpression
     inputs = ["short", "this is a long input"]
@@ -150,6 +153,7 @@ def test_conditional_batch():
     assert "Briefly comment on this short input" in str(results[0])
     assert "Analyze this long input" in str(results[1])
 
+@pytest.mark.timeout(5)
 def test_slow_batch():
     expr = SlowExpression
     inputs = ["slow1", "slow2"]
@@ -160,6 +164,7 @@ def test_slow_batch():
         assert f"slow{i}" in str(result)
         assert "Process this input after a 5 second delay" in str(result)
 
+@pytest.mark.timeout(5)
 def test_double_nested_slow_batch():
     expr = DoubleNestedExpressionSlow
     inputs = ["input1", "input2"]
@@ -170,6 +175,7 @@ def test_double_nested_slow_batch():
         assert f"input{i}" in str(result)
         assert "Synthesize these results" in str(result)
 
+@pytest.mark.timeout(5)
 def test_simple_batch_variations():
     expr = TestExpression
     inputs = ["test1", "test2", "test3", "test4", "test5", "test6"]
@@ -189,6 +195,7 @@ def test_simple_batch_variations():
         assert f"test{i}" in str(result)
         assert "Summarize this input" in str(result)
 
+@pytest.mark.timeout(5)
 def test_nested_batch_variations():
     expr = NestedExpression
     inputs = ["nested1", "nested2", "nested3", "nested4"]
@@ -209,6 +216,7 @@ def test_nested_batch_variations():
         assert f"nested{i}" in str(result)
         assert "Elaborate on this result" in str(result)
 
+@pytest.mark.timeout(5)
 def test_conditional_batch_variations():
     expr = ConditionalExpression
     inputs = ["short", "this is a long input", "short+", "yet another long input"]
@@ -221,6 +229,7 @@ def test_conditional_batch_variations():
     assert "Briefly comment on this short input" in str(results[2])
     assert "Analyze this long input" in str(results[3])
 
+@pytest.mark.timeout(5)
 def test_slow_batch_variations():
     expr = SlowExpression
     inputs = ["slow1", "slow2", "slow3", "slow4", "slow5"]
@@ -239,6 +248,7 @@ def test_slow_batch_variations():
         assert f"slow{i}" in str(result)
         assert "Process this input after a 5 second delay" in str(result)
 
+@pytest.mark.timeout(5)
 def test_double_nested_slow_batch_variations():
     expr = DoubleNestedExpressionSlow
     inputs = ["input1", "input2", "input3"]
@@ -258,6 +268,7 @@ def test_double_nested_slow_batch_variations():
         assert "Synthesize these results" in str(result)
 
 
+@pytest.mark.timeout(5)
 def test_double_nested_batch():
     expr = DoubleNestedExpression
     inputs = ["nested1", "nested2", "nested3"]
@@ -269,6 +280,3 @@ def test_double_nested_batch():
         assert "Combine these results" in str(result)
         assert "Summarize this input" in str(result)
         assert "Elaborate on this result" in str(result)
-
-
-
