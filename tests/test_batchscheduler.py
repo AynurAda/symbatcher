@@ -11,6 +11,9 @@ from symai.functional import EngineRepository
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from src.func import BatchScheduler
 
+# delay for tests with slow expressions
+delay = 1
+
 class MockGPTXChatEngine(BatchEngine):
     def __init__(self):
         super().__init__()
@@ -85,7 +88,7 @@ class ConditionalExpression(Expression):
             return Symbol(input).query("Briefly comment on this short input", **kwargs)
 
 class SlowExpression(Expression):
-    def __init__(self, delay=5, **kwargs):
+    def __init__(self, delay=delay, **kwargs):
         super().__init__(**kwargs)
         self.delay = delay
     
@@ -107,7 +110,7 @@ class DoubleNestedExpressionSlow(Expression):
         return Symbol(f"{result1}, {result2}, and {slow_result}").query("Synthesize these results", **kwargs)
 
 class ConditionalSlowExpression(Expression):
-    def __init__(self, delay=1, threshold=10, **kwargs):
+    def __init__(self, delay=delay, threshold=10, **kwargs):
         super().__init__(**kwargs)
         self.delay = delay
         self.threshold = threshold
@@ -119,7 +122,7 @@ class ConditionalSlowExpression(Expression):
         else:
             return Symbol(input).query("Quickly process this short input", **kwargs)
 
-
+# 1
 @pytest.mark.timeout(5)
 def test_simple_batch():
     expr = TestExpression
@@ -130,7 +133,7 @@ def test_simple_batch():
     for i, result in enumerate(results, 1):
         assert f"test{i}" in str(result)
         assert "Summarize this input" in str(result)
-
+# 2
 @pytest.mark.timeout(5)
 def test_nested_batch():
     expr = NestedExpression
@@ -143,6 +146,7 @@ def test_nested_batch():
         assert "Elaborate on this result" in str(result)
         assert "Summarize this input" in str(result)
 
+# 3
 @pytest.mark.timeout(5)
 def test_conditional_batch():
     expr = ConditionalExpression
@@ -153,6 +157,7 @@ def test_conditional_batch():
     assert "Briefly comment on this short input" in str(results[0])
     assert "Analyze this long input" in str(results[1])
 
+# 4
 @pytest.mark.timeout(5)
 def test_slow_batch():
     expr = SlowExpression
@@ -162,8 +167,9 @@ def test_slow_batch():
     assert len(results) == 2
     for i, result in enumerate(results, 1):
         assert f"slow{i}" in str(result)
-        assert "Process this input after a 5 second delay" in str(result)
+        assert f"Process this input after a {delay} second delay" in str(result)
 
+# 5
 @pytest.mark.timeout(5)
 def test_double_nested_slow_batch():
     expr = DoubleNestedExpressionSlow
@@ -175,6 +181,7 @@ def test_double_nested_slow_batch():
         assert f"input{i}" in str(result)
         assert "Synthesize these results" in str(result)
 
+# 6
 @pytest.mark.timeout(5)
 def test_simple_batch_variations():
     expr = TestExpression
@@ -195,6 +202,7 @@ def test_simple_batch_variations():
         assert f"test{i}" in str(result)
         assert "Summarize this input" in str(result)
 
+# 7
 @pytest.mark.timeout(5)
 def test_nested_batch_variations():
     expr = NestedExpression
@@ -239,14 +247,14 @@ def test_slow_batch_variations():
     assert len(results) == 5
     for i, result in enumerate(results, 1):
         assert f"slow{i}" in str(result)
-        assert "Process this input after a 5 second delay" in str(result)
+        assert f"Process this input after a {delay} second delay" in str(result)
     
     scheduler = BatchScheduler()
     results = scheduler(expr, num_workers=1, dataset=inputs, batch_size=5)
     assert len(results) == 5
     for i, result in enumerate(results, 1):
         assert f"slow{i}" in str(result)
-        assert "Process this input after a 5 second delay" in str(result)
+        assert f"Process this input after a {delay} second delay" in str(result)
 
 @pytest.mark.timeout(5)
 def test_double_nested_slow_batch_variations():
