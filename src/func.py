@@ -192,7 +192,7 @@ class BatchScheduler(Expression):
                     final_result = future.result()
                     self.results[data_point] = final_result
                 except Exception as exc:
-                    print(f'batch {data_point} generated an exception: {exc}')
+                    print(exc)
         query_thread.join()
         
         return [self.results.get(data_point) for data_point in self.dataset]
