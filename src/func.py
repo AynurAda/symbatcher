@@ -62,6 +62,7 @@ class BatchScheduler(Expression):
         finally:
             if self.pending_tasks==0:
                 self.all_batches_complete.set()
+            print(self.pending_tasks)
     
     def release_batch_for_execution_if_full(self):
         enough_calls_in_line = (len(self.llm_calls_queue) >= self.batch_size)
@@ -131,8 +132,10 @@ class BatchScheduler(Expression):
         while (not self.all_batches_complete.is_set()): 
             while not self.batch_ready_for_exec.is_set() and not self.all_batches_complete.is_set():
                 self.release_batch_for_execution_if_full()
-            self.batch_ready_for_exec.wait()
-            self.batch_ready_for_exec.clear()
+            while self.pending_tasks>0 and not self.batch_ready_for_exec.is_set():
+                self.batch_ready_for_exec.wait()
+                self.batch_ready_for_exec.clear()
+
             self.current_batch_responses_received = 0
             current_batch, current_batch_ids = self.get_next_batch() 
             if not current_batch:
@@ -149,10 +152,10 @@ class BatchScheduler(Expression):
                 self.all_batches_complete.set()
                 break
 
-        print(f"Exiting execute_queries - Queue: {len(self.llm_calls_queue)}, Pending: {self.pending_tasks}")   
+        print(f"Exiting execute_queries - Queue: {len(self.llm_calls_queue)}, Pending: {self.pending_tasks}")
 
- 
-    def forward(self, expr: Expression, num_workers: int, dataset: List[Any], batch_size: int = 5, **kwargs) -> List[Any]:
+    def forward(self, expr: Expression, num_workers: int, dataset: List[Any], batch_size: int = 5, **kwargs) -> List[
+        Any]:
         """
         Run the batch scheduling process for symbolicai Expressions.
 
@@ -165,13 +168,16 @@ class BatchScheduler(Expression):
         Returns:
             List[Any]: A list of final results for each data point in the dataset.
         """
-        # Initialize all the instance variables that were previously in __init__
+        # Create a new dictionary with id as key and datapoint as value
+        dataset_dict = {i: datapoint for i, datapoint in enumerate(dataset)}
+
+        # Rest of the implementation
         self.num_workers = num_workers
-        self.dataset = dataset
+        self.dataset = list(dataset_dict.values())
         self.results = {}
         self.llm_calls_queue = []
         self.lock = threading.Lock()
-        self.batch_size = min(batch_size, len(dataset) if dataset else 1, num_workers)
+        self.batch_size = min(batch_size, len(self.dataset) if self.dataset else 1, num_workers)
         self.batch_ready_for_exec = threading.Event()
         self.all_batches_complete = threading.Event()
         self.llm_responses = {}
@@ -181,20 +187,21 @@ class BatchScheduler(Expression):
 
         query_thread = threading.Thread(target=self.execute_queries)
         query_thread.start()
-        
+
         with concurrent.futures.ThreadPoolExecutor(max_workers=self.num_workers) as executor:
-            future_to_data = {executor.submit(self.single_expression, data_point, **kwargs): data_point 
-                             for data_point in self.dataset}
-            
+            future_to_data = {executor.submit(self.single_expression, datapoint, **kwargs): (i, datapoint)
+                              for i, datapoint in dataset_dict.items()}
+
             concurrent.futures.wait(future_to_data.keys())
-            
+
             for future in future_to_data:
-                data_point = future_to_data[future]
+                data_id, datapoint = future_to_data[future]
                 try:
                     final_result = future.result()
-                    self.results[data_point] = final_result
+                    self.results[data_id] = final_result
                 except Exception as exc:
-                    print(exc)
+                    logging.error(f'batch {data_id} generated an exception: {exc}')
+
         query_thread.join()
-        
-        return [self.results.get(data_point) for data_point in self.dataset]
+
+        return [self.results.get(i) for i in range(len(dataset))]

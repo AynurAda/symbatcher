@@ -11,7 +11,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 from src.func import BatchScheduler
 
 # delay for tests with slow expressions
-delay = 1
+delay = 0.5
 
 class MockGPTXChatEngine(BatchEngine):
     def __init__(self):
@@ -121,6 +121,16 @@ class ConditionalSlowExpression(Expression):
         else:
             return Symbol(input).query("Quickly process this short input", **kwargs)
 
+class FaultyExpression(Expression):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    def forward(self, input, **kwargs):
+        # Introduce a bug before calling executor_callback
+        raise ValueError("Intentional exception before calling executor_callback")
+        # The code never reaches executor_callback due to the exception
+
+
 # 1
 @pytest.mark.timeout(5)
 def test_simple_batch():
@@ -223,6 +233,7 @@ def test_nested_batch_variations():
         assert f"nested{i}" in str(result)
         assert "Elaborate on this result" in str(result)
 
+#8
 @pytest.mark.timeout(5)
 def test_conditional_batch_variations():
     expr = ConditionalExpression
@@ -236,6 +247,7 @@ def test_conditional_batch_variations():
     assert "Briefly comment on this short input" in str(results[2])
     assert "Analyze this long input" in str(results[3])
 
+#9
 @pytest.mark.timeout(5)
 def test_slow_batch_variations():
     expr = SlowExpression
@@ -255,6 +267,7 @@ def test_slow_batch_variations():
         assert f"slow{i}" in str(result)
         assert f"Process this input after a {delay} second delay" in str(result)
 
+#10
 @pytest.mark.timeout(5)
 def test_double_nested_slow_batch_variations():
     expr = DoubleNestedExpressionSlow
@@ -274,7 +287,7 @@ def test_double_nested_slow_batch_variations():
         assert f"input{i}" in str(result)
         assert "Synthesize these results" in str(result)
 
-
+#11
 @pytest.mark.timeout(5)
 def test_double_nested_batch():
     expr = DoubleNestedExpression
@@ -288,17 +301,7 @@ def test_double_nested_batch():
         assert "Summarize this input" in str(result)
         assert "Elaborate on this result" in str(result)
 
-
-class FaultyExpression(Expression):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-
-    def forward(self, input, **kwargs):
-        # Introduce a bug before calling executor_callback
-        raise ValueError("Intentional exception before calling executor_callback")
-        # The code never reaches executor_callback due to the exception
-
-
+#12
 @pytest.mark.timeout(5)
 def test_faulty_expression():
     expr = FaultyExpression
