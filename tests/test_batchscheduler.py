@@ -1,4 +1,3 @@
-import itertools
 import os
 import sys
 import time
@@ -288,3 +287,29 @@ def test_double_nested_batch():
         assert "Combine these results" in str(result)
         assert "Summarize this input" in str(result)
         assert "Elaborate on this result" in str(result)
+
+
+class FaultyExpression(Expression):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    def forward(self, input, **kwargs):
+        # Introduce a bug before calling executor_callback
+        raise ValueError("Intentional exception before calling executor_callback")
+        # The code never reaches executor_callback due to the exception
+
+
+@pytest.mark.timeout(5)
+def test_faulty_expression():
+    expr = FaultyExpression
+    inputs = ["input1", "input2", "input3", "input4", "input5", "input6"]
+    scheduler = BatchScheduler()
+
+    # Run the scheduler and expect exceptions in the results
+    results = scheduler(expr, num_workers=2, dataset=inputs)
+
+    # Verify that results contain exceptions and the scheduler didn't get stuck
+    assert len(results) == 6
+    for result in results:
+        assert isinstance(result, Exception)
+        assert "Intentional exception before calling executor_callback" in str(result)

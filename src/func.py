@@ -27,7 +27,7 @@ class BatchScheduler(Expression):
         repository.get('neurosymbolic').__setattr__("executor_callback",self.executor_callback)
         self.id_queue = []
         self.current_batch_responses_received = 0
-    
+
     def engine_execution(self, batch):
         @bind(engine="neurosymbolic", property="__call__")
         def engine(self, *args, **kwargs):
@@ -58,12 +58,15 @@ class BatchScheduler(Expression):
         except Exception as e:
             print(f"Data point {data_point} generated an exception: {str(e)}")
             self.pending_tasks -= 1
-            return e   
+            return e
+        finally:
+            if self.pending_tasks==0:
+                self.all_batches_complete.set()
     
     def release_batch_for_execution_if_full(self):
         enough_calls_in_line = (len(self.llm_calls_queue) >= self.batch_size)
         last_incomplete_batch = (len(self.llm_calls_queue) > 0 and self.pending_tasks < self.batch_size)
-        if enough_calls_in_line or last_incomplete_batch:
+        if enough_calls_in_line or last_incomplete_batch or self.pending_tasks==0:
             self.batch_ready_for_exec.set()
     
     def schedule_engine_call(self, engine_call):
@@ -125,10 +128,9 @@ class BatchScheduler(Expression):
         """
         
         print("Starting execute_queries loop")
-
         while (not self.all_batches_complete.is_set()): 
             while not self.batch_ready_for_exec.is_set() and not self.all_batches_complete.is_set():
-                self.release_batch_for_execution_if_full() 
+                self.release_batch_for_execution_if_full()
             self.batch_ready_for_exec.wait()
             self.batch_ready_for_exec.clear()
             self.current_batch_responses_received = 0
@@ -141,7 +143,7 @@ class BatchScheduler(Expression):
                 self.distribute_engine_responses_to_threads(llm_batch_responses, current_batch_ids)
             
             while self.current_batch_responses_received < len(current_batch):
-                time.sleep(0.05)
+                time.sleep(0.01)
             
             if self.pending_tasks==0:
                 self.all_batches_complete.set()
