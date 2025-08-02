@@ -20,13 +20,78 @@ class BatchScheduler(Expression):
     """
 
     def __init__(self, main_loop=None): 
-        """Initialize the BatchScheduler without parameters."""
+        """Initialize the BatchScheduler with optional event loop.
+        
+        Args:
+            main_loop: Optional asyncio event loop. If not provided, one will be created automatically.
+        """
         super().__init__()
         repository = EngineRepository()
         repository.get('neurosymbolic').__setattr__("executor_callback",self.executor_callback)
         self.id_queue = []
         self.current_batch_responses_received = 0
-        self.main_loop = main_loop
+        
+        # Track if we created the loop internally
+        self._owns_loop = main_loop is None
+        self.loop_thread = None
+        
+        if main_loop is None:
+            # Create our own event loop
+            self.main_loop = asyncio.new_event_loop()
+            self.loop_thread = threading.Thread(
+                target=self.start_loop, 
+                args=(self.main_loop,),
+                daemon=True,
+                name="BatchScheduler-EventLoop"
+            )
+            self.loop_thread.start()
+            # Give the loop time to start
+            time.sleep(0.1)
+        else:
+            self.main_loop = main_loop
+    
+    @staticmethod
+    def start_loop(loop: asyncio.AbstractEventLoop) -> None:
+        """Run the given event-loop forever in the current thread."""
+        asyncio.set_event_loop(loop)
+        loop.run_forever()
+    
+    @staticmethod
+    def close_loop(loop: asyncio.AbstractEventLoop, thread: threading.Thread) -> None:
+        """
+        Stop an event-loop that's running in another thread and close it cleanly.
+        """
+        if not loop.is_closed():
+            # Step 1 – ask the loop to stop
+            loop.call_soon_threadsafe(loop.stop)
+
+            # Step 2 – wait (briefly) for the thread to exit the run_forever loop
+            thread.join(timeout=2)
+
+            # Step 3 – close the loop (must happen in the thread that created it)
+            #          so we schedule the close on that thread:
+            def _close() -> None:
+                loop.close()
+
+            loop.call_soon_threadsafe(_close)
+            lgr.info("Loop stop requested and close scheduled.")
+        else:
+            lgr.info("Loop already closed.")
+    
+    def cleanup(self):
+        """Clean up resources, including the event loop if we created it."""
+        if self._owns_loop and self.loop_thread and self.main_loop:
+            self.close_loop(self.main_loop, self.loop_thread)
+            self.loop_thread = None
+    
+    def __enter__(self):
+        """Context manager entry."""
+        return self
+    
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        """Context manager exit - ensure cleanup."""
+        self.cleanup()
+        return False
 
     def engine_execution(self, batch):
         @bind(engine="neurosymbolic", property="__call__")
@@ -36,11 +101,10 @@ class BatchScheduler(Expression):
             Must accept arguments to match the engine's interface.
             """
             pass
-        # Get the coroutine from the async __call__ method
-        coroutine = engine()(batch)
-        # Schedule it from the main loop
-        future = asyncio.run_coroutine_threadsafe(coroutine, self.main_loop)
-        llm_batch_responses = future.result()
+        
+        # The bind decorator returns the bound method directly
+        # Just call it synchronously - engines in symbolicai are not async
+        llm_batch_responses = engine()(batch)
         llm_batch_responses = [(resp[0] if isinstance(resp[0], list) else [resp[0]], resp[1]) for resp in llm_batch_responses]
         return llm_batch_responses
 

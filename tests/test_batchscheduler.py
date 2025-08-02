@@ -1,6 +1,8 @@
 import os
 import sys
 import time
+import asyncio
+import threading
 
 import pytest
 from symai import Expression, Symbol
@@ -11,7 +13,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 from src.func import BatchScheduler
 
 # delay for tests with slow expressions
-delay = 0.5
+delay = 0.01
 
 class MockGPTXChatEngine(BatchEngine):
     def __init__(self):
