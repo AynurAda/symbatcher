@@ -34,6 +34,7 @@ pytest tests/test_batchscheduler.py::test_simple_batch
   - Basic functionality: `pytest tests/test_batchscheduler.py`
   - Error handling: `pytest tests/test_batchscheduler_error.py`
   - Performance comparison: `pytest tests/test_compare_batch_and_single.py`
+  - Async engine tests: `pytest tests/test_async_chatgpt_rate_limited.py`
 
 ## Architecture
 
@@ -44,18 +45,21 @@ pytest tests/test_batchscheduler.py::test_simple_batch
    - Manages concurrent execution using ThreadPoolExecutor
    - Implements queue-based batch processing with configurable batch sizes
    - Handles executor callbacks bound directly to the engine
+   - Manages its own event loop for async operations
 
 2. **Concurrency Model**
    - Uses ThreadPoolExecutor for parallel processing
    - Queue-based system for managing work items
    - Thread-safe operations with proper locking
    - Configurable number of worker threads
+   - Async event loop management for async engines
 
 3. **Integration Points**
    - Extends symbolicai.Expression base class
    - Uses EngineRepository for engine management
    - Direct executor_callback binding to engine for response handling
    - Supports nested expressions with dependency resolution
+   - Compatible with both sync and async engines
 
 ### Key Design Patterns
 
@@ -97,3 +101,34 @@ The `reference_projects/` folder contains source code from related projects for 
   - Engine and EngineRepository patterns
   - Import system for loading external modules
   - Callback and execution patterns
+
+## Async Engines
+
+### AsyncGPTXBatchEngine (src/engines/async_chatgpt.py)
+- Drop-in replacement for GPTXChatEngine
+- Processes requests concurrently using asyncio
+- 2-5x performance improvement for batch operations
+- Maintains full compatibility with GPTXChatEngine features
+
+### Rate-Limited Async Engine (src/engines/async_chatgpt_rate_limited.py)
+- Extends AsyncGPTXBatchEngine with rate limiting
+- Configurable tokens/requests per minute limits
+- Automatic retry with exponential backoff
+- Environment variable support for configuration
+- Three modes: rate_limits=None (no limiting), 'default' (model defaults), or custom dict
+
+## Development Guidelines
+
+- **Never edit any files without permission**
+- **Always use BatchScheduler with async engines** - they don't support direct Symbol.query() calls
+- **Create BatchScheduler after engine registration** to ensure proper initialization
+
+## Claude Workflow Guidelines
+
+- When creating example files, always:
+  - Add logging in the logs directory
+  - Document all input and output prompts in the logs
+
+## Workflow Notes
+
+- Whenever you install a new library please update the requirements

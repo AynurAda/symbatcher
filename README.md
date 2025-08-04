@@ -1,7 +1,13 @@
 # symbatcher
 
 ## Description
-Symbatcher is a tool that leverages the symbolicai library to provide efficient batch scheduling capabilities.
+Symbatcher is a high-performance batch scheduling library for the symbolicai framework. It provides:
+- Efficient parallel batch processing of AI/ML expressions
+- Async engine support for improved throughput (2-5x faster)
+- Built-in rate limiting for API compliance
+- Thread-safe concurrent execution
+- Queue-based work distribution
+
 Currently only 1 engine at a time is supported. Engine switching to be introduced in a future release.
 
 ## Installation
@@ -103,6 +109,37 @@ dataset = [
 ]
 ```
 
+## Async Engines (New!)
+
+Symbatcher now includes async engine implementations for improved performance:
+
+### AsyncGPTXBatchEngine
+A drop-in replacement for GPTXChatEngine that processes requests concurrently:
+- 2-5x faster for batch processing
+- No code changes required - just register and use
+- Full compatibility with all GPTXChatEngine features
+
+### Rate-Limited Async Engine
+Includes built-in rate limiting to prevent API throttling:
+- Configurable rate limits (tokens/requests per minute)
+- Automatic retry with exponential backoff
+- Environment variable configuration support
+
+```python
+from symai import EngineRepository
+from src.engines.async_chatgpt_rate_limited import AsyncGPTXBatchEngine
+
+# Use with rate limiting (recommended)
+engine = AsyncGPTXBatchEngine(model='gpt-4', rate_limits='default')
+EngineRepository.register('neurosymbolic', engine, allow_engine_override=True)
+
+# Or without rate limiting for maximum speed
+engine = AsyncGPTXBatchEngine(model='gpt-4', rate_limits=None)
+EngineRepository.register('neurosymbolic', engine, allow_engine_override=True)
+```
+
+See `examples/` directory for complete examples.
+
 ## Usage
 
 ### Simple Usage (Recommended)
@@ -177,6 +214,29 @@ BatchScheduler.close_loop(main_loop, thread)
 
 See `example_usage.py` for complete working examples including multiple schedulers and advanced patterns.
 
+## Examples
 
+The `examples/` directory contains several demonstration scripts:
 
- 
+- **example_usage.py** - Basic BatchScheduler usage patterns
+- **async_batch_example.py** - Async engine performance comparison
+- **simple_rate_limit_demo.py** - Rate limiting demonstration
+- **RATE_LIMITING_EXAMPLES.md** - Comprehensive rate limiting guide
+
+## Testing
+
+Run the test suite with pytest:
+```bash
+# Run all tests
+pytest
+
+# Run specific test file
+pytest tests/test_batchscheduler.py
+
+# Run async engine tests
+pytest tests/test_async_chatgpt_rate_limited.py
+```
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.

@@ -1,3 +1,5 @@
 symbolicai
 pytest
+pytest-asyncio
 rpyc
+aiolimiter>=1.1.0
