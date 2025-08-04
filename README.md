@@ -8,7 +8,7 @@ Symbatcher is a high-performance batch scheduling library for the symbolicai fra
 - Thread-safe concurrent execution
 - Queue-based work distribution
 
-Currently only 1 engine at a time is supported. Engine switching to be introduced in a future release.
+Currently only 1 batched/async engine at a time is supported.  
 
 ## Installation
 
