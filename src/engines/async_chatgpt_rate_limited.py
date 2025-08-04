@@ -67,9 +67,12 @@ class RateLimitedClient:
                     for _ in range(min(estimated_tokens, 1000)):
                         await self.token_limiter.acquire()
                     
-                    # Make API call
-                    return await self.client.chat.completions.create(
-                        messages=messages, **kwargs
+                    # Make API call with timeout to prevent hanging
+                    return await asyncio.wait_for(
+                        self.client.chat.completions.create(
+                            messages=messages, **kwargs
+                        ),
+                        timeout=30.0  # 30 second timeout
                     )
                     
             except openai.RateLimitError as e:
@@ -81,6 +84,17 @@ class RateLimitedClient:
                     await asyncio.sleep(wait_time)
                 else:
                     # Final attempt failed - return error as response
+                    return self._format_error_response(e)
+            
+            except (openai.APIConnectionError, asyncio.TimeoutError) as e:
+                # Handle connection errors and timeouts
+                last_error = e
+                if attempt < self.max_retries - 1:
+                    wait_time = min(5.0 * (attempt + 1), 15.0)  # Max 15 sec wait
+                    logger.warning(f"Connection error, retrying in {wait_time:.1f}s: {e}")
+                    await asyncio.sleep(wait_time)
+                else:
+                    # Final attempt failed
                     return self._format_error_response(e)
         
         return self._format_error_response(last_error)
@@ -134,6 +148,14 @@ class AsyncGPTXBatchEngine(BatchEngine):
     Rate-limited async batch engine with improved API.
     
     Key improvement: rate_limits=None means no rate limiting (intuitive!)
+    
+    OpenAI Tier System (2025):
+    - Free Tier: 3 RPM, 20K TPM (GPT-3.5), 4K TPM (GPT-4)
+    - Tier 1 ($5 paid): 500 RPM, 40K TPM (GPT-3.5), 10K TPM (GPT-4)
+    - Tier 2 ($50 paid + 7 days): 5000 RPM, 80K TPM (GPT-3.5), 20K TPM (GPT-4)
+    - Higher tiers: Much higher limits available
+    
+    Default limits are set to Tier 1 (most common for API users).
     """
     
     def __init__(self, api_key: Optional[str] = None, model: Optional[str] = None,
@@ -278,9 +300,11 @@ class AsyncGPTXBatchEngine(BatchEngine):
             
             return output, metadata
             
-        except openai.APIConnectionError as e:
-            logger.warning(f"OpenAI API connection error: {e}")
-            raise
+        except (openai.APIConnectionError, asyncio.TimeoutError) as e:
+            # Connection errors are handled by rate limiter with retries
+            logger.error(f"Error processing request {argument.id}: {e} (Type: {type(e).__name__})")
+            # Return error as result instead of raising
+            return [f"Error processing request {argument.id}: {e}"], {'error': str(e), 'error_type': type(e).__name__}
         except openai.RateLimitError as e:
             logger.warning(f"OpenAI rate limit error: {e}")
             raise
@@ -351,14 +375,16 @@ class AsyncGPTXBatchEngine(BatchEngine):
                 'max_retries': int(os.getenv('SYMBATCHER_OPENAI_MAX_RETRIES', '3'))
             }
         
-        # Model defaults (90% of actual limits)
+        # Model defaults - Tier 1 limits (conservative defaults for most users)
+        # Tier 1: $5 paid, 500 RPM, 40K TPM (GPT-3.5), 10K TPM (GPT-4)
+        # Using 90% of actual limits to provide safety margin
         limits = {
-            'gpt-4': {'tokens': 81000, 'requests': 3150},
-            'gpt-4o': {'tokens': 135000, 'requests': 4500},
-            'gpt-4-turbo': {'tokens': 135000, 'requests': 4500},
-            'gpt-4-turbo-preview': {'tokens': 135000, 'requests': 4500},
-            'gpt-3.5-turbo': {'tokens': 180000, 'requests': 9000},
-            'gpt-3.5-turbo-16k': {'tokens': 180000, 'requests': 9000},
+            'gpt-4': {'tokens': 9000, 'requests': 450},  # 90% of 10K TPM, 500 RPM
+            'gpt-4o': {'tokens': 9000, 'requests': 450},  # Same as gpt-4 for safety
+            'gpt-4-turbo': {'tokens': 9000, 'requests': 450},
+            'gpt-4-turbo-preview': {'tokens': 9000, 'requests': 450},
+            'gpt-3.5-turbo': {'tokens': 36000, 'requests': 450},  # 90% of 40K TPM, 500 RPM
+            'gpt-3.5-turbo-16k': {'tokens': 36000, 'requests': 450},
         }
         
         if model in limits:

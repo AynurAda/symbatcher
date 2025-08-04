@@ -1,0 +1,120 @@
+{
+  "test_type": "rate_limited_batch_size_benchmark",
+  "timestamp": "20250804_143820",
+  "rate_limits": {
+    "tokens": 50000,
+    "requests": 500,
+    "max_retries": 3
+  },
+  "batch_tests": [
+    {
+      "batch_size": 1,
+      "num_workers": 1,
+      "total_requests": 1,
+      "total_time": 1.0896708965301514,
+      "requests_per_second": 0.917708276126589,
+      "avg_time_per_request": 1.0896708965301514,
+      "sample_results": [
+        [
+          "1",
+          "It's the only positive integer divisible by itself and 1."
+        ]
+      ]
+    },
+    {
+      "batch_size": 10,
+      "num_workers": 10,
+      "total_requests": 10,
+      "total_time": 6.929464101791382,
+      "requests_per_second": 1.4431130392052733,
+      "avg_time_per_request": 0.6929464101791382,
+      "sample_results": [
+        [
+          "1",
+          "It's the only multiplicative identity in mathematics."
+        ],
+        [
+          "2",
+          "2 is the only even prime number."
+        ],
+        [
+          "3",
+          "It's the first odd prime number."
+        ]
+      ]
+    },
+    {
+      "batch_size": 20,
+      "num_workers": 20,
+      "total_requests": 20,
+      "total_time": 1.8830270767211914,
+      "requests_per_second": 10.621196183129172,
+      "avg_time_per_request": 0.09415135383605958,
+      "sample_results": [
+        [
+          "1",
+          "It's the multiplicative identity in mathematics."
+        ],
+        [
+          "2",
+          "Smallest and only even prime number in mathematics."
+        ],
+        [
+          "3",
+          "It's the first odd prime number."
+        ]
+      ]
+    },
+    {
+      "batch_size": 50,
+      "num_workers": 50,
+      "total_requests": 50,
+      "total_time": 4.831523895263672,
+      "requests_per_second": 10.34870179344758,
+      "avg_time_per_request": 0.09663047790527343,
+      "sample_results": [
+        [
+          "1",
+          "It's the only number that's neither prime nor composite."
+        ],
+        [
+          "2",
+          "2 is the only even prime number."
+        ],
+        [
+          "3",
+          "3 is the first odd prime number."
+        ]
+      ]
+    },
+    {
+      "batch_size": 100,
+      "num_workers": 100,
+      "total_requests": 100,
+      "total_time": 95.20217490196228,
+      "requests_per_second": 1.0503961711271663,
+      "avg_time_per_request": 0.9520217490196228,
+      "sample_results": [
+        [
+          "1",
+          "1 is the only multiplicative identity in mathematics."
+        ],
+        [
+          "2",
+          "2 is the only even prime number."
+        ],
+        [
+          "3",
+          "The number 3 is the first odd prime number."
+        ]
+      ]
+    }
+  ],
+  "summary": {
+    "best_batch_size": 20,
+    "best_requests_per_second": 10.621196183129172,
+    "worst_batch_size": 1,
+    "worst_requests_per_second": 0.917708276126589,
+    "performance_gain": 11.573608367092987
+  }
+}

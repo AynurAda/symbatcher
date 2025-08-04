@@ -6,9 +6,14 @@ This shows the basic usage pattern and how rate limiting works.
 
 import time
 import os
+import sys
 import json
 import logging
 from datetime import datetime
+
+# Add parent directory to path for imports
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from symai import Expression, Symbol
 from symai.functional import EngineRepository
 from src.engines.async_chatgpt_rate_limited import AsyncGPTXBatchEngine
@@ -69,14 +74,14 @@ def setup_logging():
     return logger, log_file, timestamp
 
 
-def run_simple_demo():
-    """Run a simple demonstration."""
+def benchmark_batch_sizes():
+    """Benchmark different batch sizes with rate-limited engine."""
     logger, log_file, timestamp = setup_logging()
     
-    logger.info("Simple Rate-Limited Batch Processing Demo")
+    logger.info("Rate-Limited Batch Processing Benchmark")
     logger.info("="*50)
     
-    print("Simple Rate-Limited Batch Processing Demo")
+    print("Rate-Limited Batch Processing Benchmark")
     print("="*50)
     
     # Check for API key
@@ -93,9 +98,11 @@ def run_simple_demo():
     logger.info("Creating rate-limited engine...")
     print("\nCreating rate-limited engine...")
     
+    # Using custom limits slightly below Tier 2 for demonstration
+    # (Tier 1: 40K TPM/500 RPM for GPT-3.5, Tier 2: 80K TPM/5000 RPM)
     rate_limits = {
-        'tokens': 50000,    # 50k tokens/min
-        'requests': 500,    # 500 requests/min
+        'tokens': 36000,    # 90% of Tier 1 limit (40k tokens/min)
+        'requests': 450,    # 90% of Tier 1 limit (500 requests/min)
         'max_retries': 3
     }
     
@@ -111,76 +118,124 @@ def run_simple_demo():
     logger.info("Rate-limited engine registered successfully")
     print("✓ Rate-limited engine registered")
     
-    # Create test dataset - numbers 1 to 30
-    dataset = [str(i) for i in range(1, 400)]
-    logger.info(f"Created dataset with {len(dataset)} items: {dataset[:5]}...")
+    # Create larger test dataset for benchmarking
+    dataset = [str(i) for i in range(1, 101)]  # 100 items for testing
+    logger.info(f"Created dataset with {len(dataset)} items")
     print(f"\n✓ Created dataset with {len(dataset)} items")
-    
-    # Create BatchScheduler
-    scheduler = BatchScheduler()
     
     # Create expression with logger
     expression_class = type('LoggingSimpleExpression', (SimpleExpression,), {
         '__init__': lambda self: SimpleExpression.__init__(self, logger)
     })
     
-    # Process the batch
-    logger.info("Starting batch processing...")
-    logger.info("Configuration: 10 workers, batch size of 10")
-    print("\nProcessing batch...")
-    print("(Using 10 workers, batch size of 10)")
+    # Test different batch sizes
+    batch_sizes = [1, 10, 20, 50, 100]
+    benchmark_results = []
     
-    start_time = time.time()
+    logger.info("Testing different batch sizes...")
+    print("\nTesting different batch sizes...")
+    print("="*60)
     
-    results = scheduler.forward(
-        expr=expression_class,
-        num_workers=50,
-        dataset=dataset,
-        batch_size=50
-    )
+    for batch_size in batch_sizes:
+        print(f"\nTesting batch size: {batch_size}")
+        logger.info(f"Testing batch size: {batch_size}")
+        
+        # Use subset of data for each batch size
+        test_data = dataset[:batch_size]
+        
+        # Create new scheduler for each test
+        scheduler = BatchScheduler()
+        
+        # num_workers should equal batch_size
+        num_workers = batch_size
+        
+        logger.info(f"Using {num_workers} workers for batch size {batch_size} (num_workers = batch_size)")
+        
+        start_time = time.time()
+        
+        results = scheduler.forward(
+            expr=expression_class,
+            num_workers=num_workers,
+            dataset=test_data,
+            batch_size=batch_size
+        )
+        
+        duration = time.time() - start_time
+        
+        # Calculate metrics
+        requests_per_second = len(test_data) / duration
+        avg_time_per_request = duration / len(test_data)
+        
+        # Store results
+        batch_result = {
+            'batch_size': batch_size,
+            'num_workers': num_workers,
+            'total_requests': len(test_data),
+            'total_time': duration,
+            'requests_per_second': requests_per_second,
+            'avg_time_per_request': avg_time_per_request,
+            'sample_results': [(test_data[i], results[i]) for i in range(min(3, len(results)))]
+        }
+        benchmark_results.append(batch_result)
+        
+        logger.info(f"Batch size {batch_size} - Total time: {duration:.2f}s")
+        logger.info(f"Batch size {batch_size} - Requests/second: {requests_per_second:.2f}")
+        logger.info(f"Batch size {batch_size} - Avg time/request: {avg_time_per_request:.3f}s")
+        
+        print(f"  Total time: {duration:.2f} seconds")
+        print(f"  Requests processed: {len(results)}")
+        print(f"  Requests per second: {requests_per_second:.2f}")
+        print(f"  Average time per request: {avg_time_per_request:.3f} seconds")
+        print(f"  Sample result: Number {test_data[0]} -> {results[0]}")
     
-    duration = time.time() - start_time
+    # Generate summary
+    print("\n" + "="*60)
+    print("PERFORMANCE SUMMARY (Rate-Limited)")
+    print("="*60)
     
-    logger.info(f"Batch processing completed in {duration:.2f} seconds")
+    print(f"{'Batch Size':<12} {'Total Time':<15} {'Requests/sec':<15} {'Avg Time/Req':<15}")
+    print("-" * 60)
     
-    # Show results
-    print(f"\nCompleted in {duration:.2f} seconds!")
-    print(f"Average: {duration/len(dataset):.3f} seconds per item")
-    print(f"Throughput: {len(dataset)/duration:.1f} items/second")
+    for result in benchmark_results:
+        print(f"{result['batch_size']:<12} {result['total_time']:.2f}s{'':<9} {result['requests_per_second']:.2f}{'':<10} {result['avg_time_per_request']:.3f}s")
     
-    logger.info(f"Performance metrics:")
-    logger.info(f"  - Total duration: {duration:.2f} seconds")
-    logger.info(f"  - Average per item: {duration/len(dataset):.3f} seconds")
-    logger.info(f"  - Throughput: {len(dataset)/duration:.1f} items/second")
+    # Find best and worst performers
+    best_batch = max(benchmark_results, key=lambda x: x['requests_per_second'])
+    worst_batch = min(benchmark_results, key=lambda x: x['requests_per_second'])
     
-    print("\nFirst 5 results:")
-    for i in range(min(5, len(results))):
-        print(f"  Number {dataset[i]}: {results[i]}")
+    performance_gain = best_batch['requests_per_second'] / worst_batch['requests_per_second']
     
-    # Save results to JSON file
+    print(f"\nBest performance: Batch size {best_batch['batch_size']} with {best_batch['requests_per_second']:.2f} requests/sec")
+    print(f"Worst performance: Batch size {worst_batch['batch_size']} with {worst_batch['requests_per_second']:.2f} requests/sec")
+    print(f"Performance gain: {performance_gain:.2f}x")
+    
+    logger.info("=" * 60)
+    logger.info("PERFORMANCE SUMMARY")
+    logger.info("=" * 60)
+    for result in benchmark_results:
+        logger.info(f"Batch {result['batch_size']}: {result['total_time']:.2f}s, {result['requests_per_second']:.2f} req/s, {result['avg_time_per_request']:.3f}s/req")
+    logger.info(f"Best: Batch {best_batch['batch_size']} ({best_batch['requests_per_second']:.2f} req/s)")
+    logger.info(f"Performance gain: {performance_gain:.2f}x")
+    
+    # Save benchmark results to JSON file
     script_dir = os.path.dirname(os.path.abspath(__file__))
     results_file = os.path.join(script_dir, "logs", f"simple_rate_limit_demo_{timestamp}_results.json")
     results_data = {
+        "test_type": "rate_limited_batch_size_benchmark",
         "timestamp": timestamp,
-        "configuration": {
-            "num_workers": 50,
-            "batch_size": 50,
-            "dataset_size": len(dataset),
-            "rate_limits": {
-                "tokens": 50000,
-                "requests": 500,
-                "max_retries": 3
-            }
+        "rate_limits": {
+            "tokens": 50000,
+            "requests": 500,
+            "max_retries": 3
         },
-        "performance": {
-            "total_duration_seconds": duration,
-            "average_per_item_seconds": duration/len(dataset),
-            "throughput_items_per_second": len(dataset)/duration
-        },
-        "results": [
-            {"input": dataset[i], "output": results[i]} 
-            for i in range(len(results))
-        ]
+        "batch_tests": benchmark_results,
+        "summary": {
+            "best_batch_size": best_batch['batch_size'],
+            "best_requests_per_second": best_batch['requests_per_second'],
+            "worst_batch_size": worst_batch['batch_size'],
+            "worst_requests_per_second": worst_batch['requests_per_second'],
+            "performance_gain": performance_gain
+        }
     }
     
     with open(results_file, 'w') as f:
@@ -188,7 +243,7 @@ def run_simple_demo():
     
     logger.info(f"Results saved to: {results_file}")
     
-    return results
+    return benchmark_results
 
 
 def demo_rate_limit_options():
@@ -216,14 +271,14 @@ def demo_rate_limit_options():
 
 def main():
     """Run the demonstration."""
-    # Run simple demo
-    run_simple_demo()
+    # Run benchmark
+    benchmark_batch_sizes()
     
     # Show rate limiting options
     demo_rate_limit_options()
     
     print("\n" + "="*50)
-    print("Demo completed!")
+    print("Benchmark completed!")
 
 
 if __name__ == "__main__":

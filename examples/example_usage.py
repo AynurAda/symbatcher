@@ -94,7 +94,7 @@ def context_manager_example():
         
         results = scheduler.forward(
             DataProcessor,
-            num_workers=2,
+            num_workers=3,
             batch_size=3,
             dataset=data_inputs
         )
@@ -179,14 +179,14 @@ def multiple_schedulers_example():
     # Run different tasks
     risk_results = risk_scheduler.forward(
         RiskManager,
-        num_workers=1,
+        num_workers=2,
         batch_size=2,
         dataset=["Investment A", "Investment B"]
     )
     
     data_results = data_scheduler.forward(
         DataProcessor,
-        num_workers=1,
+        num_workers=2,
         batch_size=2,
         dataset=["Sales data", "Customer data"]
     )

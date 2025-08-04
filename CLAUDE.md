@@ -36,6 +36,16 @@ pytest tests/test_batchscheduler.py::test_simple_batch
   - Performance comparison: `pytest tests/test_compare_batch_and_single.py`
   - Async engine tests: `pytest tests/test_async_chatgpt_rate_limited.py`
 
+### Clear Logs
+```bash
+# Clear all log files
+rm -rf examples/logs/*
+
+# Clear specific log pattern
+rm -f examples/logs/*.log
+rm -f examples/logs/*.json
+```
+
 ## Architecture
 
 ### Core Components
@@ -132,3 +142,7 @@ The `reference_projects/` folder contains source code from related projects for 
 ## Workflow Notes
 
 - Whenever you install a new library please update the requirements
+
+## Naming Conventions
+
+- Never start function names with test_ unless these are pytest unit tests

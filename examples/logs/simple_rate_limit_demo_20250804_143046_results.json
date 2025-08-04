@@ -1,0 +1,120 @@
+{
+  "test_type": "rate_limited_batch_size_benchmark",
+  "timestamp": "20250804_143046",
+  "rate_limits": {
+    "tokens": 50000,
+    "requests": 500,
+    "max_retries": 3
+  },
+  "batch_tests": [
+    {
+      "batch_size": 1,
+      "num_workers": 1,
+      "total_requests": 1,
+      "total_time": 0.8122460842132568,
+      "requests_per_second": 1.2311539808389498,
+      "avg_time_per_request": 0.8122460842132568,
+      "sample_results": [
+        [
+          "1",
+          "The number 1 is the multiplicative identity in mathematics."
+        ]
+      ]
+    },
+    {
+      "batch_size": 10,
+      "num_workers": 10,
+      "total_requests": 10,
+      "total_time": 2.332310676574707,
+      "requests_per_second": 4.2875934584693765,
+      "avg_time_per_request": 0.2332310676574707,
+      "sample_results": [
+        [
+          "1",
+          "The number 1 is the only multiplicative identity."
+        ],
+        [
+          "2",
+          "It's the only even prime number."
+        ],
+        [
+          "3",
+          "3 is the first odd prime number."
+        ]
+      ]
+    },
+    {
+      "batch_size": 20,
+      "num_workers": 20,
+      "total_requests": 20,
+      "total_time": 2.4554390907287598,
+      "requests_per_second": 8.145182698897296,
+      "avg_time_per_request": 0.122771954536438,
+      "sample_results": [
+        [
+          "1",
+          "1 is the only multiplicative identity in mathematics."
+        ],
+        [
+          "2",
+          "The only even prime number in mathematics."
+        ],
+        [
+          "3",
+          "It's the first odd prime number."
+        ]
+      ]
+    },
+    {
+      "batch_size": 50,
+      "num_workers": 50,
+      "total_requests": 50,
+      "total_time": 9.414617776870728,
+      "requests_per_second": 5.3108900631990625,
+      "avg_time_per_request": 0.18829235553741455,
+      "sample_results": [
+        [
+          "1",
+          "It's the only number divisible by itself and 1."
+        ],
+        [
+          "2",
+          "2 is the only even prime number."
+        ],
+        [
+          "3",
+          "Three is the only number equal to the sum of its digits."
+        ]
+      ]
+    },
+    {
+      "batch_size": 100,
+      "num_workers": 100,
+      "total_requests": 100,
+      "total_time": 93.82643628120422,
+      "requests_per_second": 1.0657977001310504,
+      "avg_time_per_request": 0.9382643628120423,
+      "sample_results": [
+        [
+          "1",
+          "Error processing request 0: Connection error."
+        ],
+        [
+          "2",
+          "2 is the only even prime number."
+        ],
+        [
+          "3",
+          "Three is the first odd prime number."
+        ]
+      ]
+    }
+  ],
+  "summary": {
+    "best_batch_size": 20,
+    "best_requests_per_second": 8.145182698897296,
+    "worst_batch_size": 100,
+    "worst_requests_per_second": 1.0657977001310504,
+    "performance_gain": 7.642334654968542
+  }
+}

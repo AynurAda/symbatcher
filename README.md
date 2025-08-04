@@ -125,6 +125,25 @@ Includes built-in rate limiting to prevent API throttling:
 - Automatic retry with exponential backoff
 - Environment variable configuration support
 
+### Performance Benchmarks
+
+#### Rate-Limited Engine Performance (Tier 1: 36k tokens/min, 450 requests/min)
+| Batch Size | Requests/sec | Avg Time/Request | Performance |
+|------------|--------------|------------------|-------------|
+| 1          | 0.72         | 1.381s          | Baseline    |
+| 10         | 7.44         | 0.134s          | 10.3x faster |
+| 20         | 3.94         | 0.254s          | 5.4x faster |
+| 50         | **18.12**    | **0.055s**      | **25x faster** |
+| 100        | 1.70         | 0.589s          | 2.3x faster |
+
+**Key findings:**
+- Optimal batch size: 50 (achieves 18.12 requests/sec)
+- Performance gain: Up to 25x faster than single requests
+- Batch size 100 shows degraded performance due to rate limit constraints
+- Sweet spot for rate-limited processing: batch sizes between 10-50
+
+**Note:** Default limits are set to OpenAI Tier 1 ($5 paid users). Higher tier users can increase limits via environment variables or custom configuration.
+
 ```python
 from symai import EngineRepository
 from src.engines.async_chatgpt_rate_limited import AsyncGPTXBatchEngine

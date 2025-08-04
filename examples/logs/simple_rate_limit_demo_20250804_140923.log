@@ -1,0 +1,592 @@
+2025-08-04 14:09:23,030 - simple_rate_limit_demo - INFO - Logging started. Log file: /Users/aynur/aynur/symbatcher/examples/logs/simple_rate_limit_demo_20250804_140923.log
+2025-08-04 14:09:23,030 - simple_rate_limit_demo - INFO - Rate-Limited Batch Processing Benchmark
+2025-08-04 14:09:23,030 - simple_rate_limit_demo - INFO - ==================================================
+2025-08-04 14:09:23,030 - simple_rate_limit_demo - INFO - Creating rate-limited engine...
+2025-08-04 14:09:23,030 - simple_rate_limit_demo - INFO - Rate limits configuration: {
+  "tokens": 50000,
+  "requests": 500,
+  "max_retries": 3
+}
+2025-08-04 14:09:23,164 - src.engines.async_chatgpt_rate_limited - INFO - Using custom rate limits: {'tokens': 50000, 'requests': 500, 'max_retries': 3}
+2025-08-04 14:09:23,175 - simple_rate_limit_demo - INFO - Rate-limited engine registered successfully
+2025-08-04 14:09:23,175 - simple_rate_limit_demo - INFO - Created dataset with 100 items
+2025-08-04 14:09:23,175 - simple_rate_limit_demo - INFO - Testing different batch sizes...
+2025-08-04 14:09:23,175 - simple_rate_limit_demo - INFO - Testing batch size: 1
+2025-08-04 14:09:23,276 - simple_rate_limit_demo - INFO - Using 1 workers for batch size 1 (num_workers = batch_size)
+2025-08-04 14:09:23,276 - simple_rate_limit_demo - INFO - Processing number: 1
+2025-08-04 14:09:23,277 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 1 in 10 words or less.
+2025-08-04 14:09:24,645 - simple_rate_limit_demo - INFO - Response for 1: "1" is the only multiplicative identity in mathematics.
+2025-08-04 14:09:24,657 - simple_rate_limit_demo - INFO - Batch size 1 - Total time: 1.38s
+2025-08-04 14:09:24,657 - simple_rate_limit_demo - INFO - Batch size 1 - Requests/second: 0.72
+2025-08-04 14:09:24,657 - simple_rate_limit_demo - INFO - Batch size 1 - Avg time/request: 1.381s
+2025-08-04 14:09:24,657 - simple_rate_limit_demo - INFO - Testing batch size: 10
+2025-08-04 14:09:24,763 - simple_rate_limit_demo - INFO - Using 10 workers for batch size 10 (num_workers = batch_size)
+2025-08-04 14:09:24,765 - simple_rate_limit_demo - INFO - Processing number: 1
+2025-08-04 14:09:24,765 - simple_rate_limit_demo - INFO - Processing number: 2
+2025-08-04 14:09:24,765 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 1 in 10 words or less.
+2025-08-04 14:09:24,766 - simple_rate_limit_demo - INFO - Processing number: 3
+2025-08-04 14:09:24,766 - simple_rate_limit_demo - INFO - Processing number: 4
+2025-08-04 14:09:24,766 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 2 in 10 words or less.
+2025-08-04 14:09:24,766 - simple_rate_limit_demo - INFO - Processing number: 5
+2025-08-04 14:09:24,767 - simple_rate_limit_demo - INFO - Processing number: 6
+2025-08-04 14:09:24,770 - simple_rate_limit_demo - INFO - Processing number: 7
+2025-08-04 14:09:24,770 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 3 in 10 words or less.
+2025-08-04 14:09:24,770 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 4 in 10 words or less.
+2025-08-04 14:09:24,770 - simple_rate_limit_demo - INFO - Processing number: 8
+2025-08-04 14:09:24,772 - simple_rate_limit_demo - INFO - Processing number: 9
+2025-08-04 14:09:24,772 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 5 in 10 words or less.
+2025-08-04 14:09:24,772 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 6 in 10 words or less.
+2025-08-04 14:09:24,772 - simple_rate_limit_demo - INFO - Processing number: 10
+2025-08-04 14:09:24,773 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 7 in 10 words or less.
+2025-08-04 14:09:24,775 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 8 in 10 words or less.
+2025-08-04 14:09:24,776 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 9 in 10 words or less.
+2025-08-04 14:09:24,778 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 10 in 10 words or less.
+2025-08-04 14:09:26,096 - simple_rate_limit_demo - INFO - Response for 10: It's the base of the decimal numeral system.
+2025-08-04 14:09:26,097 - simple_rate_limit_demo - INFO - Response for 2: It's the only even prime number.
+2025-08-04 14:09:26,097 - simple_rate_limit_demo - INFO - Response for 3: Three is the first odd prime number.
+2025-08-04 14:09:26,097 - simple_rate_limit_demo - INFO - Response for 4: Four is the only number with the same number of letters.
+2025-08-04 14:09:26,098 - simple_rate_limit_demo - INFO - Response for 5: Five is the only prime number ending in 5.
+2025-08-04 14:09:26,098 - simple_rate_limit_demo - INFO - Response for 6: 6 is the smallest perfect number in mathematics.
+2025-08-04 14:09:26,098 - simple_rate_limit_demo - INFO - Response for 7: Seven is considered a lucky number in many cultures.
+2025-08-04 14:09:26,098 - simple_rate_limit_demo - INFO - Response for 8: It represents infinity when turned on its side.
+2025-08-04 14:09:26,098 - simple_rate_limit_demo - INFO - Response for 9: It's the highest single-digit number in the decimal system.
+2025-08-04 14:09:26,099 - simple_rate_limit_demo - INFO - Response for 1: It's the only number with a multiplicative identity property.
+2025-08-04 14:09:26,107 - simple_rate_limit_demo - INFO - Batch size 10 - Total time: 1.34s
+2025-08-04 14:09:26,107 - simple_rate_limit_demo - INFO - Batch size 10 - Requests/second: 7.44
+2025-08-04 14:09:26,107 - simple_rate_limit_demo - INFO - Batch size 10 - Avg time/request: 0.134s
+2025-08-04 14:09:26,108 - simple_rate_limit_demo - INFO - Testing batch size: 20
+2025-08-04 14:09:26,213 - simple_rate_limit_demo - INFO - Using 20 workers for batch size 20 (num_workers = batch_size)
+2025-08-04 14:09:26,215 - simple_rate_limit_demo - INFO - Processing number: 1
+2025-08-04 14:09:26,215 - simple_rate_limit_demo - INFO - Processing number: 2
+2025-08-04 14:09:26,215 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 1 in 10 words or less.
+2025-08-04 14:09:26,215 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 2 in 10 words or less.
+2025-08-04 14:09:26,215 - simple_rate_limit_demo - INFO - Processing number: 3
+2025-08-04 14:09:26,215 - simple_rate_limit_demo - INFO - Processing number: 4
+2025-08-04 14:09:26,217 - simple_rate_limit_demo - INFO - Processing number: 5
+2025-08-04 14:09:26,219 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 3 in 10 words or less.
+2025-08-04 14:09:26,219 - simple_rate_limit_demo - INFO - Processing number: 6
+2025-08-04 14:09:26,219 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 4 in 10 words or less.
+2025-08-04 14:09:26,219 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 5 in 10 words or less.
+2025-08-04 14:09:26,220 - simple_rate_limit_demo - INFO - Processing number: 7
+2025-08-04 14:09:26,222 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 6 in 10 words or less.
+2025-08-04 14:09:26,223 - simple_rate_limit_demo - INFO - Processing number: 8
+2025-08-04 14:09:26,224 - simple_rate_limit_demo - INFO - Processing number: 9
+2025-08-04 14:09:26,225 - simple_rate_limit_demo - INFO - Processing number: 10
+2025-08-04 14:09:26,225 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 7 in 10 words or less.
+2025-08-04 14:09:26,226 - simple_rate_limit_demo - INFO - Processing number: 11
+2025-08-04 14:09:26,227 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 8 in 10 words or less.
+2025-08-04 14:09:26,227 - simple_rate_limit_demo - INFO - Processing number: 12
+2025-08-04 14:09:26,228 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 9 in 10 words or less.
+2025-08-04 14:09:26,228 - simple_rate_limit_demo - INFO - Processing number: 13
+2025-08-04 14:09:26,228 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 10 in 10 words or less.
+2025-08-04 14:09:26,230 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 11 in 10 words or less.
+2025-08-04 14:09:26,230 - simple_rate_limit_demo - INFO - Processing number: 14
+2025-08-04 14:09:26,232 - simple_rate_limit_demo - INFO - Processing number: 15
+2025-08-04 14:09:26,232 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 12 in 10 words or less.
+2025-08-04 14:09:26,233 - simple_rate_limit_demo - INFO - Processing number: 16
+2025-08-04 14:09:26,234 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 13 in 10 words or less.
+2025-08-04 14:09:26,235 - simple_rate_limit_demo - INFO - Processing number: 17
+2025-08-04 14:09:26,238 - simple_rate_limit_demo - INFO - Processing number: 18
+2025-08-04 14:09:26,238 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 14 in 10 words or less.
+2025-08-04 14:09:26,238 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 15 in 10 words or less.
+2025-08-04 14:09:26,238 - simple_rate_limit_demo - INFO - Processing number: 19
+2025-08-04 14:09:26,240 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 16 in 10 words or less.
+2025-08-04 14:09:26,240 - simple_rate_limit_demo - INFO - Processing number: 20
+2025-08-04 14:09:26,241 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 17 in 10 words or less.
+2025-08-04 14:09:26,241 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 18 in 10 words or less.
+2025-08-04 14:09:26,244 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 19 in 10 words or less.
+2025-08-04 14:09:26,245 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 20 in 10 words or less.
+2025-08-04 14:09:31,278 - simple_rate_limit_demo - INFO - Response for 20: 20 is the atomic number of calcium.
+2025-08-04 14:09:31,278 - simple_rate_limit_demo - INFO - Response for 3: Three is the first odd prime number.
+2025-08-04 14:09:31,278 - simple_rate_limit_demo - INFO - Response for 2: 2 is the only even prime number.
+2025-08-04 14:09:31,278 - simple_rate_limit_demo - INFO - Response for 4: Four is the only number with the same number of letters.
+2025-08-04 14:09:31,278 - simple_rate_limit_demo - INFO - Response for 5: 5 is the only prime number ending in 5.
+2025-08-04 14:09:31,278 - simple_rate_limit_demo - INFO - Response for 6: 6 is the only number that's both perfect and triangular.
+2025-08-04 14:09:31,278 - simple_rate_limit_demo - INFO - Response for 7: Seven is a prime number and symbolizes perfection in many cultures.
+2025-08-04 14:09:31,278 - simple_rate_limit_demo - INFO - Response for 8: 8 is the only Fibonacci number that's a perfect cube.
+2025-08-04 14:09:31,279 - simple_rate_limit_demo - INFO - Response for 9: 9 is the only number whose square equals the sum of its digits.
+2025-08-04 14:09:31,279 - simple_rate_limit_demo - INFO - Response for 10: 10 is the base of the decimal number system.
+2025-08-04 14:09:31,279 - simple_rate_limit_demo - INFO - Response for 11: 11 is the smallest two-digit prime number.
+2025-08-04 14:09:31,279 - simple_rate_limit_demo - INFO - Response for 12: 12 is the smallest abundant number.
+2025-08-04 14:09:31,279 - simple_rate_limit_demo - INFO - Response for 13: Considered unlucky in many cultures, especially Western superstitions.
+2025-08-04 14:09:31,279 - simple_rate_limit_demo - INFO - Response for 14: 14 is the atomic number of silicon.
+2025-08-04 14:09:31,279 - simple_rate_limit_demo - INFO - Response for 15: 15 is the atomic number of phosphorus.
+2025-08-04 14:09:31,279 - simple_rate_limit_demo - INFO - Response for 16: 16 is the atomic number of the element sulfur.
+2025-08-04 14:09:31,279 - simple_rate_limit_demo - INFO - Response for 17: 17 is the only prime number that ends with 7.
+2025-08-04 14:09:31,279 - simple_rate_limit_demo - INFO - Response for 18: 18 is the atomic number of the noble gas argon.
+2025-08-04 14:09:31,279 - simple_rate_limit_demo - INFO - Response for 19: 19 is the atomic number of potassium.
+2025-08-04 14:09:31,279 - simple_rate_limit_demo - INFO - Response for 1: One is the only multiplicative identity in mathematics.
+2025-08-04 14:09:31,290 - simple_rate_limit_demo - INFO - Batch size 20 - Total time: 5.08s
+2025-08-04 14:09:31,290 - simple_rate_limit_demo - INFO - Batch size 20 - Requests/second: 3.94
+2025-08-04 14:09:31,290 - simple_rate_limit_demo - INFO - Batch size 20 - Avg time/request: 0.254s
+2025-08-04 14:09:31,290 - simple_rate_limit_demo - INFO - Testing batch size: 50
+2025-08-04 14:09:31,396 - simple_rate_limit_demo - INFO - Using 50 workers for batch size 50 (num_workers = batch_size)
+2025-08-04 14:09:31,398 - simple_rate_limit_demo - INFO - Processing number: 1
+2025-08-04 14:09:31,398 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 1 in 10 words or less.
+2025-08-04 14:09:31,398 - simple_rate_limit_demo - INFO - Processing number: 2
+2025-08-04 14:09:31,399 - simple_rate_limit_demo - INFO - Processing number: 3
+2025-08-04 14:09:31,400 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 2 in 10 words or less.
+2025-08-04 14:09:31,400 - simple_rate_limit_demo - INFO - Processing number: 4
+2025-08-04 14:09:31,400 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 3 in 10 words or less.
+2025-08-04 14:09:31,400 - simple_rate_limit_demo - INFO - Processing number: 5
+2025-08-04 14:09:31,401 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 4 in 10 words or less.
+2025-08-04 14:09:31,401 - simple_rate_limit_demo - INFO - Processing number: 6
+2025-08-04 14:09:31,403 - simple_rate_limit_demo - INFO - Processing number: 7
+2025-08-04 14:09:31,403 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 5 in 10 words or less.
+2025-08-04 14:09:31,404 - simple_rate_limit_demo - INFO - Processing number: 8
+2025-08-04 14:09:31,404 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 6 in 10 words or less.
+2025-08-04 14:09:31,404 - simple_rate_limit_demo - INFO - Processing number: 9
+2025-08-04 14:09:31,404 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 7 in 10 words or less.
+2025-08-04 14:09:31,405 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 8 in 10 words or less.
+2025-08-04 14:09:31,406 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 9 in 10 words or less.
+2025-08-04 14:09:31,408 - simple_rate_limit_demo - INFO - Processing number: 10
+2025-08-04 14:09:31,408 - simple_rate_limit_demo - INFO - Processing number: 11
+2025-08-04 14:09:31,410 - simple_rate_limit_demo - INFO - Processing number: 12
+2025-08-04 14:09:31,410 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 10 in 10 words or less.
+2025-08-04 14:09:31,410 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 11 in 10 words or less.
+2025-08-04 14:09:31,410 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 12 in 10 words or less.
+2025-08-04 14:09:31,410 - simple_rate_limit_demo - INFO - Processing number: 13
+2025-08-04 14:09:31,412 - simple_rate_limit_demo - INFO - Processing number: 14
+2025-08-04 14:09:31,413 - simple_rate_limit_demo - INFO - Processing number: 15
+2025-08-04 14:09:31,413 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 13 in 10 words or less.
+2025-08-04 14:09:31,414 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 14 in 10 words or less.
+2025-08-04 14:09:31,414 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 15 in 10 words or less.
+2025-08-04 14:09:31,415 - simple_rate_limit_demo - INFO - Processing number: 16
+2025-08-04 14:09:31,415 - simple_rate_limit_demo - INFO - Processing number: 17
+2025-08-04 14:09:31,416 - simple_rate_limit_demo - INFO - Processing number: 18
+2025-08-04 14:09:31,417 - simple_rate_limit_demo - INFO - Processing number: 19
+2025-08-04 14:09:31,417 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 16 in 10 words or less.
+2025-08-04 14:09:31,417 - simple_rate_limit_demo - INFO - Processing number: 20
+2025-08-04 14:09:31,417 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 17 in 10 words or less.
+2025-08-04 14:09:31,418 - simple_rate_limit_demo - INFO - Processing number: 21
+2025-08-04 14:09:31,418 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 18 in 10 words or less.
+2025-08-04 14:09:31,418 - simple_rate_limit_demo - INFO - Processing number: 22
+2025-08-04 14:09:31,418 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 19 in 10 words or less.
+2025-08-04 14:09:31,418 - simple_rate_limit_demo - INFO - Processing number: 23
+2025-08-04 14:09:31,420 - simple_rate_limit_demo - INFO - Processing number: 24
+2025-08-04 14:09:31,420 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 20 in 10 words or less.
+2025-08-04 14:09:31,420 - simple_rate_limit_demo - INFO - Processing number: 25
+2025-08-04 14:09:31,421 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 21 in 10 words or less.
+2025-08-04 14:09:31,422 - simple_rate_limit_demo - INFO - Processing number: 26
+2025-08-04 14:09:31,423 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 22 in 10 words or less.
+2025-08-04 14:09:31,424 - simple_rate_limit_demo - INFO - Processing number: 27
+2025-08-04 14:09:31,424 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 23 in 10 words or less.
+2025-08-04 14:09:31,424 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 24 in 10 words or less.
+2025-08-04 14:09:31,426 - simple_rate_limit_demo - INFO - Processing number: 28
+2025-08-04 14:09:31,426 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 25 in 10 words or less.
+2025-08-04 14:09:31,427 - simple_rate_limit_demo - INFO - Processing number: 29
+2025-08-04 14:09:31,427 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 26 in 10 words or less.
+2025-08-04 14:09:31,427 - simple_rate_limit_demo - INFO - Processing number: 30
+2025-08-04 14:09:31,429 - simple_rate_limit_demo - INFO - Processing number: 31
+2025-08-04 14:09:31,429 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 27 in 10 words or less.
+2025-08-04 14:09:31,432 - simple_rate_limit_demo - INFO - Processing number: 32
+2025-08-04 14:09:31,432 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 28 in 10 words or less.
+2025-08-04 14:09:31,432 - simple_rate_limit_demo - INFO - Processing number: 33
+2025-08-04 14:09:31,433 - simple_rate_limit_demo - INFO - Processing number: 34
+2025-08-04 14:09:31,433 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 29 in 10 words or less.
+2025-08-04 14:09:31,433 - simple_rate_limit_demo - INFO - Processing number: 35
+2025-08-04 14:09:31,435 - simple_rate_limit_demo - INFO - Processing number: 36
+2025-08-04 14:09:31,435 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 30 in 10 words or less.
+2025-08-04 14:09:31,435 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 31 in 10 words or less.
+2025-08-04 14:09:31,435 - simple_rate_limit_demo - INFO - Processing number: 37
+2025-08-04 14:09:31,436 - simple_rate_limit_demo - INFO - Processing number: 38
+2025-08-04 14:09:31,436 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 32 in 10 words or less.
+2025-08-04 14:09:31,438 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 33 in 10 words or less.
+2025-08-04 14:09:31,438 - simple_rate_limit_demo - INFO - Processing number: 39
+2025-08-04 14:09:31,438 - simple_rate_limit_demo - INFO - Processing number: 40
+2025-08-04 14:09:31,438 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 34 in 10 words or less.
+2025-08-04 14:09:31,438 - simple_rate_limit_demo - INFO - Processing number: 41
+2025-08-04 14:09:31,440 - simple_rate_limit_demo - INFO - Processing number: 42
+2025-08-04 14:09:31,440 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 35 in 10 words or less.
+2025-08-04 14:09:31,440 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 36 in 10 words or less.
+2025-08-04 14:09:31,441 - simple_rate_limit_demo - INFO - Processing number: 43
+2025-08-04 14:09:31,443 - simple_rate_limit_demo - INFO - Processing number: 44
+2025-08-04 14:09:31,443 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 37 in 10 words or less.
+2025-08-04 14:09:31,443 - simple_rate_limit_demo - INFO - Processing number: 45
+2025-08-04 14:09:31,443 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 38 in 10 words or less.
+2025-08-04 14:09:31,443 - simple_rate_limit_demo - INFO - Processing number: 46
+2025-08-04 14:09:31,445 - simple_rate_limit_demo - INFO - Processing number: 47
+2025-08-04 14:09:31,446 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 39 in 10 words or less.
+2025-08-04 14:09:31,446 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 40 in 10 words or less.
+2025-08-04 14:09:31,446 - simple_rate_limit_demo - INFO - Processing number: 48
+2025-08-04 14:09:31,448 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 41 in 10 words or less.
+2025-08-04 14:09:31,448 - simple_rate_limit_demo - INFO - Processing number: 49
+2025-08-04 14:09:31,448 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 42 in 10 words or less.
+2025-08-04 14:09:31,448 - simple_rate_limit_demo - INFO - Processing number: 50
+2025-08-04 14:09:31,452 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 43 in 10 words or less.
+2025-08-04 14:09:31,452 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 44 in 10 words or less.
+2025-08-04 14:09:31,453 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 45 in 10 words or less.
+2025-08-04 14:09:31,455 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 46 in 10 words or less.
+2025-08-04 14:09:31,455 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 47 in 10 words or less.
+2025-08-04 14:09:31,458 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 48 in 10 words or less.
+2025-08-04 14:09:31,459 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 49 in 10 words or less.
+2025-08-04 14:09:31,461 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 50 in 10 words or less.
+2025-08-04 14:09:34,145 - simple_rate_limit_demo - INFO - Response for 1: It's the only positive integer with exactly one divisor.
+2025-08-04 14:09:34,146 - simple_rate_limit_demo - INFO - Response for 3: Three is the first odd prime number.
+2025-08-04 14:09:34,146 - simple_rate_limit_demo - INFO - Response for 4: Four is the only number with the same number of letters.
+2025-08-04 14:09:34,146 - simple_rate_limit_demo - INFO - Response for 5: Five is the only number with the same number of letters.
+2025-08-04 14:09:34,146 - simple_rate_limit_demo - INFO - Response for 6: 6 is the smallest perfect number in mathematics.
+2025-08-04 14:09:34,146 - simple_rate_limit_demo - INFO - Response for 7: 7 is often considered a lucky number worldwide.
+2025-08-04 14:09:34,146 - simple_rate_limit_demo - INFO - Response for 8: 8 is the only Fibonacci number that's a perfect cube.
+2025-08-04 14:09:34,146 - simple_rate_limit_demo - INFO - Response for 2: The only even prime number in mathematics.
+2025-08-04 14:09:34,146 - simple_rate_limit_demo - INFO - Response for 9: 9 is the only square number that's also a cube.
+2025-08-04 14:09:34,147 - simple_rate_limit_demo - INFO - Response for 10: Base of our decimal number system; foundational in mathematics.
+2025-08-04 14:09:34,147 - simple_rate_limit_demo - INFO - Response for 11: 11 is the first palindromic prime number.
+2025-08-04 14:09:34,147 - simple_rate_limit_demo - INFO - Response for 12: 12 is the number of months in a year.
+2025-08-04 14:09:34,147 - simple_rate_limit_demo - INFO - Response for 13: Considered unlucky; Friday the 13th is a superstition.
+2025-08-04 14:09:34,147 - simple_rate_limit_demo - INFO - Response for 14: 14 is the atomic number of silicon.
+2025-08-04 14:09:34,147 - simple_rate_limit_demo - INFO - Response for 15: 15 is the atomic number of phosphorus.
+2025-08-04 14:09:34,147 - simple_rate_limit_demo - INFO - Response for 16: 16 is the atomic number of the element sulfur.
+2025-08-04 14:09:34,147 - simple_rate_limit_demo - INFO - Response for 17: 17 is the seventh prime number in mathematics.
+2025-08-04 14:09:34,147 - simple_rate_limit_demo - INFO - Response for 18: 18 is the atomic number of the noble gas argon.
+2025-08-04 14:09:34,148 - simple_rate_limit_demo - INFO - Response for 19: 19 is the atomic number of potassium.
+2025-08-04 14:09:34,148 - simple_rate_limit_demo - INFO - Response for 20: 20 is the atomic number of calcium.
+2025-08-04 14:09:34,148 - simple_rate_limit_demo - INFO - Response for 21: 21 is the legal drinking age in the United States.
+2025-08-04 14:09:34,148 - simple_rate_limit_demo - INFO - Response for 22: 22 is a palindromic number in base 10.
+2025-08-04 14:09:34,148 - simple_rate_limit_demo - INFO - Response for 23: 23 is the only prime number with consecutive digits.
+2025-08-04 14:09:34,148 - simple_rate_limit_demo - INFO - Response for 24: 24 is the smallest number with exactly eight divisors.
+2025-08-04 14:09:34,148 - simple_rate_limit_demo - INFO - Response for 25: 25 is the sum of the first five odd numbers.
+2025-08-04 14:09:34,148 - simple_rate_limit_demo - INFO - Response for 26: 26 is the atomic number of iron (Fe) on the periodic table.
+2025-08-04 14:09:34,148 - simple_rate_limit_demo - INFO - Response for 27: 27 is a perfect cube: 3 x 3 x 3.
+2025-08-04 14:09:34,149 - simple_rate_limit_demo - INFO - Response for 28: 28 is the second perfect number in mathematics.
+2025-08-04 14:09:34,149 - simple_rate_limit_demo - INFO - Response for 29: 29 is the atomic number of copper.
+2025-08-04 14:09:34,149 - simple_rate_limit_demo - INFO - Response for 30: 30 is the atomic number of the element zinc.
+2025-08-04 14:09:34,149 - simple_rate_limit_demo - INFO - Response for 31: 31 is the atomic number of gallium.
+2025-08-04 14:09:34,149 - simple_rate_limit_demo - INFO - Response for 32: 32 is the freezing point of water in Fahrenheit.
+2025-08-04 14:09:34,149 - simple_rate_limit_demo - INFO - Response for 33: 33 is the atomic number of arsenic.
+2025-08-04 14:09:34,149 - simple_rate_limit_demo - INFO - Response for 34: 34 is the atomic number of selenium.
+2025-08-04 14:09:34,150 - simple_rate_limit_demo - INFO - Response for 35: 35 is the highest number with a single syllable name.
+2025-08-04 14:09:34,150 - simple_rate_limit_demo - INFO - Response for 36: 36 is the smallest number with exactly nine divisors.
+2025-08-04 14:09:34,150 - simple_rate_limit_demo - INFO - Response for 37: 37 is the only number with letters in alphabetical order.
+2025-08-04 14:09:34,150 - simple_rate_limit_demo - INFO - Response for 38: 38 is the atomic number of the element strontium.
+2025-08-04 14:09:34,150 - simple_rate_limit_demo - INFO - Response for 39: 39 is the sum of consecutive prime numbers: 3, 5, 7, 11, 13.
+2025-08-04 14:09:34,150 - simple_rate_limit_demo - INFO - Response for 40: 40 is the atomic number of the element zirconium.
+2025-08-04 14:09:34,150 - simple_rate_limit_demo - INFO - Response for 41: 41 is the smallest number expressible as sum of two squares.
+2025-08-04 14:09:34,150 - simple_rate_limit_demo - INFO - Response for 42: Douglas Adams' "Hitchhiker's Guide" says 42 is life's answer.
+2025-08-04 14:09:34,150 - simple_rate_limit_demo - INFO - Response for 43: 43 is a prime number and a centered heptagonal number.
+2025-08-04 14:09:34,150 - simple_rate_limit_demo - INFO - Response for 44: 44 is the atomic number of the element ruthenium.
+2025-08-04 14:09:34,151 - simple_rate_limit_demo - INFO - Response for 45: Sum of digits in 45 equals a perfect square.
+2025-08-04 14:09:34,151 - simple_rate_limit_demo - INFO - Response for 46: 46 is the atomic number of the element palladium.
+2025-08-04 14:09:34,151 - simple_rate_limit_demo - INFO - Response for 47: 47 is the atomic number of silver (Ag).
+2025-08-04 14:09:34,151 - simple_rate_limit_demo - INFO - Response for 48: 48 is the atomic number of cadmium, a chemical element.
+2025-08-04 14:09:34,151 - simple_rate_limit_demo - INFO - Response for 49: 49 is a perfect square of 7.
+2025-08-04 14:09:34,151 - simple_rate_limit_demo - INFO - Response for 50: 50 is the atomic number of the element tin.
+2025-08-04 14:09:34,156 - simple_rate_limit_demo - INFO - Batch size 50 - Total time: 2.76s
+2025-08-04 14:09:34,157 - simple_rate_limit_demo - INFO - Batch size 50 - Requests/second: 18.12
+2025-08-04 14:09:34,157 - simple_rate_limit_demo - INFO - Batch size 50 - Avg time/request: 0.055s
+2025-08-04 14:09:34,157 - simple_rate_limit_demo - INFO - Testing batch size: 100
+2025-08-04 14:09:34,260 - simple_rate_limit_demo - INFO - Using 100 workers for batch size 100 (num_workers = batch_size)
+2025-08-04 14:09:34,260 - simple_rate_limit_demo - INFO - Processing number: 1
+2025-08-04 14:09:34,261 - simple_rate_limit_demo - INFO - Processing number: 2
+2025-08-04 14:09:34,261 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 1 in 10 words or less.
+2025-08-04 14:09:34,261 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 2 in 10 words or less.
+2025-08-04 14:09:34,261 - simple_rate_limit_demo - INFO - Processing number: 3
+2025-08-04 14:09:34,262 - simple_rate_limit_demo - INFO - Processing number: 4
+2025-08-04 14:09:34,263 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 3 in 10 words or less.
+2025-08-04 14:09:34,263 - simple_rate_limit_demo - INFO - Processing number: 5
+2025-08-04 14:09:34,263 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 4 in 10 words or less.
+2025-08-04 14:09:34,266 - simple_rate_limit_demo - INFO - Processing number: 6
+2025-08-04 14:09:34,266 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 5 in 10 words or less.
+2025-08-04 14:09:34,267 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 6 in 10 words or less.
+2025-08-04 14:09:34,267 - simple_rate_limit_demo - INFO - Processing number: 7
+2025-08-04 14:09:34,268 - simple_rate_limit_demo - INFO - Processing number: 8
+2025-08-04 14:09:34,269 - simple_rate_limit_demo - INFO - Processing number: 9
+2025-08-04 14:09:34,269 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 7 in 10 words or less.
+2025-08-04 14:09:34,269 - simple_rate_limit_demo - INFO - Processing number: 10
+2025-08-04 14:09:34,269 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 8 in 10 words or less.
+2025-08-04 14:09:34,269 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 9 in 10 words or less.
+2025-08-04 14:09:34,270 - simple_rate_limit_demo - INFO - Processing number: 11
+2025-08-04 14:09:34,270 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 10 in 10 words or less.
+2025-08-04 14:09:34,271 - simple_rate_limit_demo - INFO - Processing number: 12
+2025-08-04 14:09:34,272 - simple_rate_limit_demo - INFO - Processing number: 13
+2025-08-04 14:09:34,272 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 11 in 10 words or less.
+2025-08-04 14:09:34,272 - simple_rate_limit_demo - INFO - Processing number: 14
+2025-08-04 14:09:34,272 - simple_rate_limit_demo - INFO - Processing number: 15
+2025-08-04 14:09:34,274 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 12 in 10 words or less.
+2025-08-04 14:09:34,274 - simple_rate_limit_demo - INFO - Processing number: 16
+2025-08-04 14:09:34,274 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 13 in 10 words or less.
+2025-08-04 14:09:34,275 - simple_rate_limit_demo - INFO - Processing number: 17
+2025-08-04 14:09:34,275 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 14 in 10 words or less.
+2025-08-04 14:09:34,275 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 15 in 10 words or less.
+2025-08-04 14:09:34,275 - simple_rate_limit_demo - INFO - Processing number: 18
+2025-08-04 14:09:34,275 - simple_rate_limit_demo - INFO - Processing number: 19
+2025-08-04 14:09:34,277 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 16 in 10 words or less.
+2025-08-04 14:09:34,277 - simple_rate_limit_demo - INFO - Processing number: 20
+2025-08-04 14:09:34,277 - simple_rate_limit_demo - INFO - Processing number: 21
+2025-08-04 14:09:34,278 - simple_rate_limit_demo - INFO - Processing number: 22
+2025-08-04 14:09:34,278 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 17 in 10 words or less.
+2025-08-04 14:09:34,281 - simple_rate_limit_demo - INFO - Processing number: 23
+2025-08-04 14:09:34,281 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 18 in 10 words or less.
+2025-08-04 14:09:34,281 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 19 in 10 words or less.
+2025-08-04 14:09:34,282 - simple_rate_limit_demo - INFO - Processing number: 24
+2025-08-04 14:09:34,282 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 20 in 10 words or less.
+2025-08-04 14:09:34,282 - simple_rate_limit_demo - INFO - Processing number: 25
+2025-08-04 14:09:34,282 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 21 in 10 words or less.
+2025-08-04 14:09:34,282 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 22 in 10 words or less.
+2025-08-04 14:09:34,282 - simple_rate_limit_demo - INFO - Processing number: 26
+2025-08-04 14:09:34,282 - simple_rate_limit_demo - INFO - Processing number: 27
+2025-08-04 14:09:34,284 - simple_rate_limit_demo - INFO - Processing number: 28
+2025-08-04 14:09:34,284 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 23 in 10 words or less.
+2025-08-04 14:09:34,285 - simple_rate_limit_demo - INFO - Processing number: 29
+2025-08-04 14:09:34,287 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 24 in 10 words or less.
+2025-08-04 14:09:34,287 - simple_rate_limit_demo - INFO - Processing number: 30
+2025-08-04 14:09:34,288 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 25 in 10 words or less.
+2025-08-04 14:09:34,291 - simple_rate_limit_demo - INFO - Processing number: 31
+2025-08-04 14:09:34,291 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 26 in 10 words or less.
+2025-08-04 14:09:34,291 - simple_rate_limit_demo - INFO - Processing number: 32
+2025-08-04 14:09:34,291 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 27 in 10 words or less.
+2025-08-04 14:09:34,291 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 28 in 10 words or less.
+2025-08-04 14:09:34,291 - simple_rate_limit_demo - INFO - Processing number: 33
+2025-08-04 14:09:34,291 - simple_rate_limit_demo - INFO - Processing number: 34
+2025-08-04 14:09:34,293 - simple_rate_limit_demo - INFO - Processing number: 35
+2025-08-04 14:09:34,293 - simple_rate_limit_demo - INFO - Processing number: 36
+2025-08-04 14:09:34,293 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 29 in 10 words or less.
+2025-08-04 14:09:34,293 - simple_rate_limit_demo - INFO - Processing number: 37
+2025-08-04 14:09:34,294 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 30 in 10 words or less.
+2025-08-04 14:09:34,296 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 31 in 10 words or less.
+2025-08-04 14:09:34,296 - simple_rate_limit_demo - INFO - Processing number: 38
+2025-08-04 14:09:34,297 - simple_rate_limit_demo - INFO - Processing number: 39
+2025-08-04 14:09:34,297 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 32 in 10 words or less.
+2025-08-04 14:09:34,298 - simple_rate_limit_demo - INFO - Processing number: 40
+2025-08-04 14:09:34,299 - simple_rate_limit_demo - INFO - Processing number: 41
+2025-08-04 14:09:34,300 - simple_rate_limit_demo - INFO - Processing number: 42
+2025-08-04 14:09:34,301 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 33 in 10 words or less.
+2025-08-04 14:09:34,301 - simple_rate_limit_demo - INFO - Processing number: 43
+2025-08-04 14:09:34,301 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 34 in 10 words or less.
+2025-08-04 14:09:34,301 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 35 in 10 words or less.
+2025-08-04 14:09:34,301 - simple_rate_limit_demo - INFO - Processing number: 44
+2025-08-04 14:09:34,301 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 36 in 10 words or less.
+2025-08-04 14:09:34,302 - simple_rate_limit_demo - INFO - Processing number: 45
+2025-08-04 14:09:34,302 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 37 in 10 words or less.
+2025-08-04 14:09:34,306 - simple_rate_limit_demo - INFO - Processing number: 46
+2025-08-04 14:09:34,306 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 38 in 10 words or less.
+2025-08-04 14:09:34,306 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 39 in 10 words or less.
+2025-08-04 14:09:34,307 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 40 in 10 words or less.
+2025-08-04 14:09:34,307 - simple_rate_limit_demo - INFO - Processing number: 47
+2025-08-04 14:09:34,307 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 41 in 10 words or less.
+2025-08-04 14:09:34,307 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 42 in 10 words or less.
+2025-08-04 14:09:34,309 - simple_rate_limit_demo - INFO - Processing number: 48
+2025-08-04 14:09:34,309 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 43 in 10 words or less.
+2025-08-04 14:09:34,309 - simple_rate_limit_demo - INFO - Processing number: 49
+2025-08-04 14:09:34,311 - simple_rate_limit_demo - INFO - Processing number: 50
+2025-08-04 14:09:34,312 - simple_rate_limit_demo - INFO - Processing number: 51
+2025-08-04 14:09:34,312 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 44 in 10 words or less.
+2025-08-04 14:09:34,312 - simple_rate_limit_demo - INFO - Processing number: 52
+2025-08-04 14:09:34,314 - simple_rate_limit_demo - INFO - Processing number: 53
+2025-08-04 14:09:34,314 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 45 in 10 words or less.
+2025-08-04 14:09:34,314 - simple_rate_limit_demo - INFO - Processing number: 54
+2025-08-04 14:09:34,316 - simple_rate_limit_demo - INFO - Processing number: 55
+2025-08-04 14:09:34,316 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 46 in 10 words or less.
+2025-08-04 14:09:34,316 - simple_rate_limit_demo - INFO - Processing number: 56
+2025-08-04 14:09:34,317 - simple_rate_limit_demo - INFO - Processing number: 57
+2025-08-04 14:09:34,319 - simple_rate_limit_demo - INFO - Processing number: 58
+2025-08-04 14:09:34,321 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 47 in 10 words or less.
+2025-08-04 14:09:34,321 - simple_rate_limit_demo - INFO - Processing number: 59
+2025-08-04 14:09:34,324 - simple_rate_limit_demo - INFO - Processing number: 60
+2025-08-04 14:09:34,324 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 48 in 10 words or less.
+2025-08-04 14:09:34,326 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 49 in 10 words or less.
+2025-08-04 14:09:34,326 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 50 in 10 words or less.
+2025-08-04 14:09:34,326 - simple_rate_limit_demo - INFO - Processing number: 61
+2025-08-04 14:09:34,326 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 51 in 10 words or less.
+2025-08-04 14:09:34,328 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 52 in 10 words or less.
+2025-08-04 14:09:34,328 - simple_rate_limit_demo - INFO - Processing number: 62
+2025-08-04 14:09:34,328 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 53 in 10 words or less.
+2025-08-04 14:09:34,330 - simple_rate_limit_demo - INFO - Processing number: 63
+2025-08-04 14:09:34,330 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 54 in 10 words or less.
+2025-08-04 14:09:34,330 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 55 in 10 words or less.
+2025-08-04 14:09:34,332 - simple_rate_limit_demo - INFO - Processing number: 64
+2025-08-04 14:09:34,332 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 56 in 10 words or less.
+2025-08-04 14:09:34,332 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 57 in 10 words or less.
+2025-08-04 14:09:34,332 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 58 in 10 words or less.
+2025-08-04 14:09:34,334 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 59 in 10 words or less.
+2025-08-04 14:09:34,334 - simple_rate_limit_demo - INFO - Processing number: 65
+2025-08-04 14:09:34,334 - simple_rate_limit_demo - INFO - Processing number: 66
+2025-08-04 14:09:34,334 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 60 in 10 words or less.
+2025-08-04 14:09:34,334 - simple_rate_limit_demo - INFO - Processing number: 67
+2025-08-04 14:09:34,338 - simple_rate_limit_demo - INFO - Processing number: 68
+2025-08-04 14:09:34,340 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 61 in 10 words or less.
+2025-08-04 14:09:34,344 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 62 in 10 words or less.
+2025-08-04 14:09:34,346 - simple_rate_limit_demo - INFO - Processing number: 69
+2025-08-04 14:09:34,346 - simple_rate_limit_demo - INFO - Processing number: 70
+2025-08-04 14:09:34,346 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 63 in 10 words or less.
+2025-08-04 14:09:34,350 - simple_rate_limit_demo - INFO - Processing number: 71
+2025-08-04 14:09:34,350 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 64 in 10 words or less.
+2025-08-04 14:09:34,350 - simple_rate_limit_demo - INFO - Processing number: 72
+2025-08-04 14:09:34,352 - simple_rate_limit_demo - INFO - Processing number: 73
+2025-08-04 14:09:34,352 - simple_rate_limit_demo - INFO - Processing number: 74
+2025-08-04 14:09:34,354 - simple_rate_limit_demo - INFO - Processing number: 75
+2025-08-04 14:09:34,356 - simple_rate_limit_demo - INFO - Processing number: 76
+2025-08-04 14:09:34,356 - simple_rate_limit_demo - INFO - Processing number: 77
+2025-08-04 14:09:34,358 - simple_rate_limit_demo - INFO - Processing number: 78
+2025-08-04 14:09:34,358 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 65 in 10 words or less.
+2025-08-04 14:09:34,358 - simple_rate_limit_demo - INFO - Processing number: 79
+2025-08-04 14:09:34,358 - simple_rate_limit_demo - INFO - Processing number: 80
+2025-08-04 14:09:34,358 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 66 in 10 words or less.
+2025-08-04 14:09:34,358 - simple_rate_limit_demo - INFO - Processing number: 81
+2025-08-04 14:09:34,360 - simple_rate_limit_demo - INFO - Processing number: 82
+2025-08-04 14:09:34,360 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 67 in 10 words or less.
+2025-08-04 14:09:34,360 - simple_rate_limit_demo - INFO - Processing number: 83
+2025-08-04 14:09:34,360 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 68 in 10 words or less.
+2025-08-04 14:09:34,360 - simple_rate_limit_demo - INFO - Processing number: 84
+2025-08-04 14:09:34,360 - simple_rate_limit_demo - INFO - Processing number: 85
+2025-08-04 14:09:34,363 - simple_rate_limit_demo - INFO - Processing number: 86
+2025-08-04 14:09:34,365 - simple_rate_limit_demo - INFO - Processing number: 87
+2025-08-04 14:09:34,365 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 69 in 10 words or less.
+2025-08-04 14:09:34,365 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 70 in 10 words or less.
+2025-08-04 14:09:34,367 - simple_rate_limit_demo - INFO - Processing number: 88
+2025-08-04 14:09:34,368 - simple_rate_limit_demo - INFO - Processing number: 89
+2025-08-04 14:09:34,368 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 71 in 10 words or less.
+2025-08-04 14:09:34,368 - simple_rate_limit_demo - INFO - Processing number: 90
+2025-08-04 14:09:34,370 - simple_rate_limit_demo - INFO - Processing number: 91
+2025-08-04 14:09:34,370 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 72 in 10 words or less.
+2025-08-04 14:09:34,370 - simple_rate_limit_demo - INFO - Processing number: 92
+2025-08-04 14:09:34,370 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 73 in 10 words or less.
+2025-08-04 14:09:34,370 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 74 in 10 words or less.
+2025-08-04 14:09:34,370 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 75 in 10 words or less.
+2025-08-04 14:09:34,370 - simple_rate_limit_demo - INFO - Processing number: 93
+2025-08-04 14:09:34,370 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 76 in 10 words or less.
+2025-08-04 14:09:34,370 - simple_rate_limit_demo - INFO - Processing number: 94
+2025-08-04 14:09:34,370 - simple_rate_limit_demo - INFO - Processing number: 95
+2025-08-04 14:09:34,370 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 77 in 10 words or less.
+2025-08-04 14:09:34,370 - simple_rate_limit_demo - INFO - Processing number: 96
+2025-08-04 14:09:34,370 - simple_rate_limit_demo - INFO - Processing number: 97
+2025-08-04 14:09:34,371 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 78 in 10 words or less.
+2025-08-04 14:09:34,371 - simple_rate_limit_demo - INFO - Processing number: 98
+2025-08-04 14:09:34,373 - simple_rate_limit_demo - INFO - Processing number: 99
+2025-08-04 14:09:34,373 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 79 in 10 words or less.
+2025-08-04 14:09:34,373 - simple_rate_limit_demo - INFO - Processing number: 100
+2025-08-04 14:09:34,373 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 80 in 10 words or less.
+2025-08-04 14:09:34,376 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 81 in 10 words or less.
+2025-08-04 14:09:34,376 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 82 in 10 words or less.
+2025-08-04 14:09:34,379 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 83 in 10 words or less.
+2025-08-04 14:09:34,381 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 84 in 10 words or less.
+2025-08-04 14:09:34,381 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 85 in 10 words or less.
+2025-08-04 14:09:34,381 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 86 in 10 words or less.
+2025-08-04 14:09:34,381 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 87 in 10 words or less.
+2025-08-04 14:09:34,386 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 88 in 10 words or less.
+2025-08-04 14:09:34,386 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 89 in 10 words or less.
+2025-08-04 14:09:34,389 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 90 in 10 words or less.
+2025-08-04 14:09:34,389 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 91 in 10 words or less.
+2025-08-04 14:09:34,392 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 92 in 10 words or less.
+2025-08-04 14:09:34,399 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 93 in 10 words or less.
+2025-08-04 14:09:34,402 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 94 in 10 words or less.
+2025-08-04 14:09:34,402 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 95 in 10 words or less.
+2025-08-04 14:09:34,404 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 96 in 10 words or less.
+2025-08-04 14:09:34,404 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 97 in 10 words or less.
+2025-08-04 14:09:34,407 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 98 in 10 words or less.
+2025-08-04 14:09:34,407 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 99 in 10 words or less.
+2025-08-04 14:09:34,410 - simple_rate_limit_demo - INFO - Prompt: Tell me one interesting fact about the number 100 in 10 words or less.
+2025-08-04 14:10:33,142 - simple_rate_limit_demo - INFO - Response for 1: It's the only number that's neither prime nor composite.
+2025-08-04 14:10:33,143 - simple_rate_limit_demo - INFO - Response for 2: The only even prime number.
+2025-08-04 14:10:33,143 - simple_rate_limit_demo - INFO - Response for 4: 4 is the only number with the same number of letters.
+2025-08-04 14:10:33,143 - simple_rate_limit_demo - INFO - Response for 3: It is the first odd prime number.
+2025-08-04 14:10:33,143 - simple_rate_limit_demo - INFO - Response for 5: Five is the only prime number ending in 5.
+2025-08-04 14:10:33,143 - simple_rate_limit_demo - INFO - Response for 6: 6 is the smallest perfect number.
+2025-08-04 14:10:33,143 - simple_rate_limit_demo - INFO - Response for 7: Seven is the only number with two syllables in English.
+2025-08-04 14:10:33,143 - simple_rate_limit_demo - INFO - Response for 9: 9 is the only number that equals the sum of its digits when multiplied by any number.
+2025-08-04 14:10:33,143 - simple_rate_limit_demo - INFO - Response for 8: 8 is a symbol of infinity when turned sideways.
+2025-08-04 14:10:33,144 - simple_rate_limit_demo - INFO - Response for 10: 10 is the base of the decimal numeral system.
+2025-08-04 14:10:33,144 - simple_rate_limit_demo - INFO - Response for 11: 11 is the first double-digit prime number.
+2025-08-04 14:10:33,144 - simple_rate_limit_demo - INFO - Response for 12: 12 is the smallest abundant number.
+2025-08-04 14:10:33,144 - simple_rate_limit_demo - INFO - Response for 13: Considered unlucky in many cultures, known as triskaidekaphobia.
+2025-08-04 14:10:33,144 - simple_rate_limit_demo - INFO - Response for 14: 14 is the atomic number of the element silicon.
+2025-08-04 14:10:33,144 - simple_rate_limit_demo - INFO - Response for 15: 15 is the atomic number of phosphorus.
+2025-08-04 14:10:33,144 - simple_rate_limit_demo - INFO - Response for 16: 16 is the only integer with a fourth power of 2.
+2025-08-04 14:10:33,144 - simple_rate_limit_demo - INFO - Response for 17: 17 is the seventh prime number.
+2025-08-04 14:10:33,144 - simple_rate_limit_demo - INFO - Response for 18: Eighteen is the atomic number of the noble gas argon.
+2025-08-04 14:10:33,144 - simple_rate_limit_demo - INFO - Response for 19: 19 is the atomic number of potassium.
+2025-08-04 14:10:33,145 - simple_rate_limit_demo - INFO - Response for 20: 20 is the atomic number of calcium.
+2025-08-04 14:10:33,145 - simple_rate_limit_demo - INFO - Response for 21: 21 is the legal drinking age in the United States.
+2025-08-04 14:10:33,145 - simple_rate_limit_demo - INFO - Response for 22: 22 is a palindromic number, same forwards and backwards.
+2025-08-04 14:10:33,145 - simple_rate_limit_demo - INFO - Response for 23: 23 is the smallest odd prime sum of three consecutive primes.
+2025-08-04 14:10:33,145 - simple_rate_limit_demo - INFO - Response for 24: 24 is the smallest number with exactly eight divisors.
+2025-08-04 14:10:33,145 - simple_rate_limit_demo - INFO - Response for 25: Square of 5 and sum of first five odd numbers.
+2025-08-04 14:10:33,145 - simple_rate_limit_demo - INFO - Response for 26: 26 is the only integer between a square and cube.
+2025-08-04 14:10:33,145 - simple_rate_limit_demo - INFO - Response for 27: 27 is a perfect cube: 3 x 3 x 3.
+2025-08-04 14:10:33,145 - simple_rate_limit_demo - INFO - Response for 28: 28 is the second perfect number in mathematics.
+2025-08-04 14:10:33,145 - simple_rate_limit_demo - INFO - Response for 29: 29 is the atomic number of copper.
+2025-08-04 14:10:33,146 - simple_rate_limit_demo - INFO - Response for 30: 30 is the atomic number of the element zinc.
+2025-08-04 14:10:33,146 - simple_rate_limit_demo - INFO - Response for 31: It's the atomic number of gallium, a unique metal.
+2025-08-04 14:10:33,146 - simple_rate_limit_demo - INFO - Response for 32: 32 is the freezing point of water in Fahrenheit.
+2025-08-04 14:10:33,146 - simple_rate_limit_demo - INFO - Response for 33: 33 is the atomic number of the element arsenic.
+2025-08-04 14:10:33,146 - simple_rate_limit_demo - INFO - Response for 34: 34 is the atomic number of selenium.
+2025-08-04 14:10:33,146 - simple_rate_limit_demo - INFO - Response for 35: 35 is the sum of the first five triangular numbers.
+2025-08-04 14:10:33,146 - simple_rate_limit_demo - INFO - Response for 36: 36 is the smallest square number that's also a triangular number.
+2025-08-04 14:10:33,146 - simple_rate_limit_demo - INFO - Response for 37: 37 is the only prime number with digits in order.
+2025-08-04 14:10:33,146 - simple_rate_limit_demo - INFO - Response for 38: Atomic number of strontium, a soft, silvery metal.
+2025-08-04 14:10:33,146 - simple_rate_limit_demo - INFO - Response for 39: 39 is the sum of consecutive primes: 17, 13, 9.
+2025-08-04 14:10:33,147 - simple_rate_limit_demo - INFO - Response for 40: 40 is the only number with letters in alphabetical order.
+2025-08-04 14:10:33,147 - simple_rate_limit_demo - INFO - Response for 41: 41 is the smallest prime that is also a sum of six consecutive primes.
+2025-08-04 14:10:33,147 - simple_rate_limit_demo - INFO - Response for 42: Answer to life, universe, and everything in "The Hitchhiker's Guide."
+2025-08-04 14:10:33,147 - simple_rate_limit_demo - INFO - Response for 43: 43 is the 14th smallest prime number.
+2025-08-04 14:10:33,147 - simple_rate_limit_demo - INFO - Response for 44: 44 is the atomic number of ruthenium.
+2025-08-04 14:10:33,147 - simple_rate_limit_demo - INFO - Response for 49: 49 is a perfect square; 7 multiplied by 7.
+2025-08-04 14:10:33,147 - simple_rate_limit_demo - INFO - Response for 100: 100 is the basis of the percentage system for calculations.
+2025-08-04 14:10:33,148 - simple_rate_limit_demo - INFO - Response for 90: It's the sum of four consecutive prime numbers: 17, 19, 23, 31.
+2025-08-04 14:10:33,148 - simple_rate_limit_demo - INFO - Response for 93: 93 is the atomic number of neptunium, a radioactive element.
+2025-08-04 14:10:33,148 - simple_rate_limit_demo - INFO - Response for 65: 65 is the retirement age in many countries.
+2025-08-04 14:10:33,148 - simple_rate_limit_demo - INFO - Response for 72: 72 is the atomic number of the element Hafnium.
+2025-08-04 14:10:33,148 - simple_rate_limit_demo - INFO - Response for 77: 77 is a palindromic number in base 10.
+2025-08-04 14:10:33,148 - simple_rate_limit_demo - INFO - Response for 97: 97 is the largest two-digit prime number.
+2025-08-04 14:10:33,148 - simple_rate_limit_demo - INFO - Response for 80: 80 is the atomic number of the element mercury.
+2025-08-04 14:10:33,149 - simple_rate_limit_demo - INFO - Response for 83: 83 is the 23rd prime number.
+2025-08-04 14:10:33,149 - simple_rate_limit_demo - INFO - Response for 47: 47 is a prime number and a safe prime.
+2025-08-04 14:10:33,149 - simple_rate_limit_demo - INFO - Response for 57: 57 is the Heinz company's famous "57 varieties" slogan.
+2025-08-04 14:10:33,149 - simple_rate_limit_demo - INFO - Response for 50: 50 is the atomic number of tin.
+2025-08-04 14:10:33,149 - simple_rate_limit_demo - INFO - Response for 70: Atomic number of ytterbium, a rare earth element.
+2025-08-04 14:10:33,149 - simple_rate_limit_demo - INFO - Response for 45: 45 is a triangular number and also a hexagonal number.
+2025-08-04 14:10:33,149 - simple_rate_limit_demo - INFO - Response for 78: Atomic number of platinum is 78.
+2025-08-04 14:10:33,149 - simple_rate_limit_demo - INFO - Response for 66: 66 is the atomic number of the element dysprosium.
+2025-08-04 14:10:33,149 - simple_rate_limit_demo - INFO - Response for 82: Atomic number of lead in the periodic table.
+2025-08-04 14:10:33,149 - simple_rate_limit_demo - INFO - Response for 51: Area 51 is a secretive U.S. military base in Nevada.
+2025-08-04 14:10:33,150 - simple_rate_limit_demo - INFO - Response for 55: 55 is the sum of the first ten natural numbers.
+2025-08-04 14:10:33,150 - simple_rate_limit_demo - INFO - Response for 59: 59 is the 17th prime number in mathematics.
+2025-08-04 14:10:33,150 - simple_rate_limit_demo - INFO - Response for 81: 81 is 3 raised to the power of 4.
+2025-08-04 14:10:33,150 - simple_rate_limit_demo - INFO - Response for 61: 61 is the smallest prime number with a twin prime.
+2025-08-04 14:10:33,150 - simple_rate_limit_demo - INFO - Response for 84: 84 is the atomic number of polonium, a radioactive element.
+2025-08-04 14:10:33,150 - simple_rate_limit_demo - INFO - Response for 75: 75 is the atomic number of the element rhenium.
+2025-08-04 14:10:33,150 - simple_rate_limit_demo - INFO - Response for 52: 52 is the number of weeks in a year.
+2025-08-04 14:10:33,150 - simple_rate_limit_demo - INFO - Response for 73: 73 is the 21st prime number and a star number.
+2025-08-04 14:10:33,150 - simple_rate_limit_demo - INFO - Response for 94: Atomic number of plutonium in the periodic table.
+2025-08-04 14:10:33,150 - simple_rate_limit_demo - INFO - Response for 99: 99 is the atomic number of the element Einsteinium.
+2025-08-04 14:10:33,150 - simple_rate_limit_demo - INFO - Response for 87: 87 is the atomic number of the element francium.
+2025-08-04 14:10:33,151 - simple_rate_limit_demo - INFO - Response for 95: 95 is the atomic number of americium, a radioactive element.
+2025-08-04 14:10:33,151 - simple_rate_limit_demo - INFO - Response for 88: 88 is a palindromic and symmetrical number.
+2025-08-04 14:10:33,151 - simple_rate_limit_demo - INFO - Response for 74: Atomic number of tungsten in the periodic table.
+2025-08-04 14:10:33,151 - simple_rate_limit_demo - INFO - Response for 79: 79 is the atomic number of gold.
+2025-08-04 14:10:33,151 - simple_rate_limit_demo - INFO - Response for 76: 76 is the atomic number of the element osmium.
+2025-08-04 14:10:33,151 - simple_rate_limit_demo - INFO - Response for 89: 89 is the 11th Fibonacci number in the sequence.
+2025-08-04 14:10:33,151 - simple_rate_limit_demo - INFO - Response for 98: 98 is the atomic number of the element californium.
+2025-08-04 14:10:33,151 - simple_rate_limit_demo - INFO - Response for 86: Atomic number of radon, a noble gas element.
+2025-08-04 14:10:33,151 - simple_rate_limit_demo - INFO - Response for 64: 64 is the smallest number with exactly seven divisors.
+2025-08-04 14:10:33,151 - simple_rate_limit_demo - INFO - Response for 85: 85 is the atomic number of the element astatine.
+2025-08-04 14:10:33,151 - simple_rate_limit_demo - INFO - Response for 69: 69 is the atomic number of the element thulium.
+2025-08-04 14:10:33,151 - simple_rate_limit_demo - INFO - Response for 67: 67 is the 19th prime number.
+2025-08-04 14:10:33,152 - simple_rate_limit_demo - INFO - Response for 96: 96 is the atomic number of curium.
+2025-08-04 14:10:33,152 - simple_rate_limit_demo - INFO - Response for 91: 91 is the smallest positive pseudoprime to base 3.
+2025-08-04 14:10:33,152 - simple_rate_limit_demo - INFO - Response for 62: 62 is the atomic number of the element Samarium.
+2025-08-04 14:10:33,152 - simple_rate_limit_demo - INFO - Response for 71: 71 is the 20th prime number in mathematics.
+2025-08-04 14:10:33,152 - simple_rate_limit_demo - INFO - Response for 46: 46 is the atomic number of the element palladium.
+2025-08-04 14:10:33,152 - simple_rate_limit_demo - INFO - Response for 92: Atomic number of uranium in the periodic table.
+2025-08-04 14:10:33,152 - simple_rate_limit_demo - INFO - Response for 53: 53 is the atomic number of iodine in chemistry.
+2025-08-04 14:10:33,152 - simple_rate_limit_demo - INFO - Response for 58: 58 is the atomic number of cerium, a rare earth element.
+2025-08-04 14:10:33,152 - simple_rate_limit_demo - INFO - Response for 63: 63 is the code for international direct dial to Philippines.
+2025-08-04 14:10:33,152 - simple_rate_limit_demo - INFO - Response for 48: 48 is the atomic number of the element cadmium.
+2025-08-04 14:10:33,152 - simple_rate_limit_demo - INFO - Response for 54: 54 is the atomic number of xenon, a noble gas.
+2025-08-04 14:10:33,152 - simple_rate_limit_demo - INFO - Response for 60: 60 is the smallest number divisible by 1-6 without remainder.
+2025-08-04 14:10:33,153 - simple_rate_limit_demo - INFO - Response for 68: Atomic number of erbium is 68.
+2025-08-04 14:10:33,153 - simple_rate_limit_demo - INFO - Response for 56: 56 is the atomic number of the element barium.
+2025-08-04 14:10:33,166 - simple_rate_limit_demo - INFO - Batch size 100 - Total time: 58.91s
+2025-08-04 14:10:33,166 - simple_rate_limit_demo - INFO - Batch size 100 - Requests/second: 1.70
+2025-08-04 14:10:33,166 - simple_rate_limit_demo - INFO - Batch size 100 - Avg time/request: 0.589s
+2025-08-04 14:10:33,166 - simple_rate_limit_demo - INFO - ============================================================
+2025-08-04 14:10:33,166 - simple_rate_limit_demo - INFO - PERFORMANCE SUMMARY
+2025-08-04 14:10:33,166 - simple_rate_limit_demo - INFO - ============================================================
+2025-08-04 14:10:33,166 - simple_rate_limit_demo - INFO - Batch 1: 1.38s, 0.72 req/s, 1.381s/req
+2025-08-04 14:10:33,166 - simple_rate_limit_demo - INFO - Batch 10: 1.34s, 7.44 req/s, 0.134s/req
+2025-08-04 14:10:33,166 - simple_rate_limit_demo - INFO - Batch 20: 5.08s, 3.94 req/s, 0.254s/req
+2025-08-04 14:10:33,166 - simple_rate_limit_demo - INFO - Batch 50: 2.76s, 18.12 req/s, 0.055s/req
+2025-08-04 14:10:33,166 - simple_rate_limit_demo - INFO - Batch 100: 58.91s, 1.70 req/s, 0.589s/req
+2025-08-04 14:10:33,166 - simple_rate_limit_demo - INFO - Best: Batch 50 (18.12 req/s)
+2025-08-04 14:10:33,166 - simple_rate_limit_demo - INFO - Performance gain: 25.02x
+2025-08-04 14:10:33,167 - simple_rate_limit_demo - INFO - Results saved to: /Users/aynur/aynur/symbatcher/examples/logs/simple_rate_limit_demo_20250804_140923_results.json
