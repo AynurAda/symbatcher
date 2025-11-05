@@ -3,4 +3,5 @@ __pycache__
 .venv
 .pytest_cache
 *.idea
+symai.config.json
 
